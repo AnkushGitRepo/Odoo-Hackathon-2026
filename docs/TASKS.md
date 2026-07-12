@@ -1,3 +1,4 @@
+
 # Task Board
 
 Build approach (D-019): **page by page** — landing → auth → basic dashboard → one module page
@@ -37,8 +38,8 @@ Mongoose models already shipped in T5 — no need to wait on Ankush's routes to 
 | M4 | Maintenance (`/api/maintenance` + `/maintenance`) | Dev | done |
 | M5 | Fuel & Expenses (`/api/fuel-logs`, `/api/expenses` + `/expenses`) | Dev | done |
 | M6 | Analytics + CSV (`/api/analytics` + `/analytics`) | Dev | done |
-| M7 | Dashboard finishers: filters, status donut | Ankush | todo |
-| M8 | Settings page (general + RBAC matrix display) | Ankush | todo |
+| M7 | Dashboard finishers: filters, status donut | Ankush | done |
+| M8 | Settings page (general + RBAC matrix display) | Ankush | done |
 
 Dev's detailed task prompt: [docs/PROMPT_DEV_PHASE2.md](./PROMPT_DEV_PHASE2.md).
 

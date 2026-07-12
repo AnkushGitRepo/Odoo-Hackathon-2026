@@ -12,7 +12,7 @@ import DriversPage from "./pages/drivers/DriversPage";
 import MaintenancePage from "./pages/maintenance/MaintenancePage";
 import ExpensesPage from "./pages/expenses/ExpensesPage";
 import AnalyticsPage from "./pages/analytics/AnalyticsPage";
-import { SettingsPage } from "./pages/modules";
+import SettingsPage from "./pages/settings/SettingsPage";
 
 export default function App() {
   return (
