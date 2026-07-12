@@ -3,6 +3,7 @@ import express, { type NextFunction, type Request, type Response } from "express
 import cors from "cors";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth.js";
+import dashboardRouter from "./routes/dashboard.js";
 import { fail } from "./lib/respond.js";
 
 const app = express();
@@ -15,6 +16,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/dashboard", dashboardRouter);
 
 app.use("/api", (_req, res) => {
   fail(res, 404, "NOT_FOUND", "No such endpoint.");
