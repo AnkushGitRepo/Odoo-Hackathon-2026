@@ -17,9 +17,9 @@ when you start/finish a task. If you take over an unowned/blocked task, write yo
 | T2 | Auth backend: User model, `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `requireAuth` + `requireRole` | Ankush | done |
 | T3 | Client auth plumbing: `lib/api.ts` (axios + JWT + envelope unwrap), `lib/types.ts`, `lib/rbac.ts`, AuthContext, protected routes | Ankush | done |
 | T4 | Signup + Login pages per DESIGN.md §0 (split layout, role select on signup, error states) | Ankush | done |
-| T5 | Core Mongoose models: Vehicle, Driver, Trip, MaintenanceLog, FuelLog, Expense + enum constants | Dev | todo |
-| T6 | Seed script: 4 users, ~8 vehicles, ~6 drivers (1 expired license, 1 suspended), sample trips/logs | Dev | todo |
-| T7 | `GET /api/dashboard/kpis` endpoint (per contract) | Dev | todo |
+| T5 | Core Mongoose models: Vehicle, Driver, Trip, MaintenanceLog, FuelLog, Expense + enum constants | Dev | done |
+| T6 | Seed script: 4 users, ~8 vehicles, ~6 drivers (1 expired license, 1 suspended), sample trips/logs | Dev | done |
+| T7 | `GET /api/dashboard/kpis` endpoint (per contract) | Dev | done |
 | T8 | App shell: responsive sidebar (RBAC-filtered) + topbar + badge/kpi-card components | Ankush | done |
 | T9 | Basic dashboard page: KPI cards + recent trips (filters + donut can wait) | Ankush | done |
 

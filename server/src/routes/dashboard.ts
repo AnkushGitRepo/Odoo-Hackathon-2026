@@ -1,20 +1,34 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth.js";
 import { ok } from "../lib/respond.js";
-import { Vehicle, Trip, Driver, VEHICLE_TYPES, VEHICLE_STATUSES } from "../models/index.js";
+import {
+  Vehicle,
+  Trip,
+  Driver,
+  VEHICLE_TYPES,
+  VEHICLE_STATUSES,
+  type VehicleType,
+  type VehicleStatus,
+} from "../models/index.js";
 
 const dashboardRouter = Router();
 
-dashboardRouter.get("/kpis", requireAuth, async (req, res) => {
+interface VehicleFilter {
+  type?: VehicleType;
+  status?: VehicleStatus;
+  region?: string;
+}
+
+dashboardRouter.get("/kpis", requireAuth, async (req, res, next) => {
   try {
     const { type, status, region } = req.query;
-    const vFilter: Record<string, any> = {};
+    const vFilter: VehicleFilter = {};
 
     if (typeof type === "string" && (VEHICLE_TYPES as readonly string[]).includes(type)) {
-      vFilter.type = type;
+      vFilter.type = type as VehicleType;
     }
     if (typeof status === "string" && (VEHICLE_STATUSES as readonly string[]).includes(status)) {
-      vFilter.status = status;
+      vFilter.status = status as VehicleStatus;
     }
     if (typeof region === "string" && region.trim() !== "") {
       vFilter.region = region;
@@ -56,9 +70,11 @@ dashboardRouter.get("/kpis", requireAuth, async (req, res) => {
       recentTrips,
     };
 
-    return ok(res, data);
+    ok(res, data);
   } catch (error) {
-    throw error;
+    // Express 4 does not forward async-handler rejections automatically;
+    // without next(), a thrown error here just hangs the request.
+    next(error);
   }
 });
 
