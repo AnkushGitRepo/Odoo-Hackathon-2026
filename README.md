@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TransitOps — Smart Transport Operations Platform
 
-## Getting Started
+End-to-end transport operations platform that digitizes **vehicle, driver, dispatch, maintenance, and expense management** with enforced business rules and operational analytics.
 
-First, run the development server:
+Built in 8 hours for the Odoo Hackathon 2026.
+
+## Tech Stack (MERN)
+
+| Layer | Choice |
+|---|---|
+| Frontend | React 19 + TypeScript + Vite + Tailwind CSS v4 + React Router |
+| Backend | Node.js + Express + TypeScript |
+| Database | MongoDB (Atlas) via Mongoose |
+| Auth | JWT (email/password, bcrypt) + role-based access control |
+| Charts | Recharts |
+| Animations | GSAP |
+
+## Quick Start
 
 ```bash
+# 1. Install dependencies (both workspaces)
+npm install
+
+# 2. Configure environment
+cp .env.example server/.env
+# Set MONGODB_URI (MongoDB Atlas free tier or local mongod)
+# Set JWT_SECRET (generate with: openssl rand -base64 32)
+
+# 3. Seed demo data
+npm run seed
+
+# 4. Run (starts API on :5000 and client on :5173)
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:5173
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo Logins (after seeding)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Role | Email | Password |
+|---|---|---|
+| Fleet Manager | manager@transitops.in | password123 |
+| Dispatcher | dispatcher@transitops.in | password123 |
+| Safety Officer | safety@transitops.in | password123 |
+| Financial Analyst | finance@transitops.in | password123 |
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Auth + RBAC** — email/password login; four roles with scoped module access
+- **Dashboard** — KPI cards (active/available/in-maintenance vehicles, active/pending trips, drivers on duty, fleet utilization %) with type/status/region filters
+- **Vehicle Registry** — CRUD with unique registration numbers, capacity, odometer, acquisition cost, status lifecycle (Available / On Trip / In Shop / Retired)
+- **Driver Management** — profiles with license category/expiry, safety score, status lifecycle (Available / On Trip / Off Duty / Suspended)
+- **Trip Dispatcher** — Draft → Dispatched → Completed / Cancelled lifecycle with validated vehicle/driver pools and cargo-capacity enforcement
+- **Maintenance** — service records auto-move vehicles In Shop and back
+- **Fuel & Expenses** — fuel logs, tolls/misc expenses, auto-computed operational cost per vehicle
+- **Analytics** — fuel efficiency (km/L), fleet utilization, operational cost, vehicle ROI, CSV export
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Business Rules (enforced server-side in `server/src/lib/rules.ts`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Vehicle registration number is unique
+2. Retired / In Shop vehicles never appear in dispatch selection
+3. Drivers with expired licenses or Suspended status cannot be assigned
+4. A vehicle/driver already On Trip cannot be double-booked
+5. Cargo weight ≤ vehicle max load capacity
+6. Dispatch ⇒ vehicle + driver become **On Trip**
+7. Complete ⇒ both return to **Available** (odometer + fuel captured)
+8. Cancel dispatched trip ⇒ both restored to **Available**
+9. Active maintenance record ⇒ vehicle **In Shop**
+10. Closing maintenance ⇒ vehicle **Available** (unless Retired)
 
-## Deploy on Vercel
+## Project Docs
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [AGENTS.md](./AGENTS.md) — operating guide for AI coding agents (Claude Code / Antigravity)
+- [ARCHITECTURE.md](./ARCHITECTURE.md) — entities, REST API, state machines, RBAC matrix
+- [DESIGN.md](./DESIGN.md) — screen-by-screen UI spec from the Excalidraw mockup
+- [docs/DECISIONS.md](./docs/DECISIONS.md) — decision log
+- [docs/TASKS.md](./docs/TASKS.md) — live task split between team members
+- [docs/AGENT_LOG.md](./docs/AGENT_LOG.md) — per-session agent work log
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Team
+
+- Ankush (lju.ankush@gmail.com) — Claude Code
+- Teammate — Antigravity
+
+Both members commit hourly to `main` per hackathon rules.
