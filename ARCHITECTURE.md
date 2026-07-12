@@ -9,7 +9,7 @@ MongoDB. In dev, Vite proxies `/api/*` to the server, so the client code never h
 client (Vite React SPA, :5173)
    │  axios, JWT in Authorization header
    ▼
-server (Express, :5000)
+server (Express, :5001)
    ├─ middleware: requireAuth (JWT verify) → requireRole (RBAC)
    ├─ routes/* : Zod-validate input → lib/rules.ts (business rules) → models
    └─ Mongoose ──► MongoDB (Atlas)

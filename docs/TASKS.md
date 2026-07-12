@@ -13,15 +13,15 @@ when you start/finish a task. If you take over an unowned/blocked task, write yo
 
 | ID | Task | Owner | Status |
 |---|---|---|---|
-| T1 | Landing page `/` (hero, floating preview cards, feature grid, roles strip — DESIGN.md §L) with GSAP | Ankush | todo |
-| T2 | Auth backend: User model, `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `requireAuth` + `requireRole` | Ankush | todo |
-| T3 | Client auth plumbing: `lib/api.ts` (axios + JWT + envelope unwrap), `lib/types.ts`, `lib/rbac.ts`, AuthContext, protected routes | Ankush | todo |
-| T4 | Signup + Login pages per DESIGN.md §0 (split layout, role select on signup, error states) | Dev | todo |
+| T1 | Landing page `/` (hero, floating preview cards, feature grid, roles strip — DESIGN.md §L) with GSAP | Ankush | done |
+| T2 | Auth backend: User model, `POST /auth/register`, `POST /auth/login`, `GET /auth/me`, `requireAuth` + `requireRole` | Ankush | done |
+| T3 | Client auth plumbing: `lib/api.ts` (axios + JWT + envelope unwrap), `lib/types.ts`, `lib/rbac.ts`, AuthContext, protected routes | Ankush | done |
+| T4 | Signup + Login pages per DESIGN.md §0 (split layout, role select on signup, error states) | Ankush | done |
 | T5 | Core Mongoose models: Vehicle, Driver, Trip, MaintenanceLog, FuelLog, Expense + enum constants | Dev | todo |
 | T6 | Seed script: 4 users, ~8 vehicles, ~6 drivers (1 expired license, 1 suspended), sample trips/logs | Dev | todo |
 | T7 | `GET /api/dashboard/kpis` endpoint (per contract) | Dev | todo |
-| T8 | App shell: responsive sidebar (RBAC-filtered) + topbar + badge/kpi-card components | Ankush | todo |
-| T9 | Basic dashboard page: KPI cards + recent trips (filters + donut can wait) | Dev | todo |
+| T8 | App shell: responsive sidebar (RBAC-filtered) + topbar + badge/kpi-card components | Ankush | done |
+| T9 | Basic dashboard page: KPI cards + recent trips (filters + donut can wait) | Ankush | done |
 
 ## Phase 2+ — Module pages (assign owners when a phase starts)
 
@@ -49,6 +49,6 @@ when you start/finish a task. If you take over an unowned/blocked task, write yo
 
 1. Clone `git@github.com:AnkushGitRepo/Odoo-Hackathon-2026.git`, `npm install` (root — installs client + server workspaces).
 2. Copy `.env.example` → `server/.env`; get `MONGODB_URI` + `JWT_SECRET` from Ankush.
-3. `npm run seed && npm run dev` (API :5000, client :5173).
+3. `npm run seed && npm run dev` (API :5001, client :5173).
 4. Read `AGENTS.md` fully (agent guide + **binding API contract**), then `DESIGN.md` (your pages) and `ARCHITECTURE.md`.
 5. Commit hourly to `main` under your own git identity (`git config user.name/user.email` before first commit!); `npm run build` before every push.

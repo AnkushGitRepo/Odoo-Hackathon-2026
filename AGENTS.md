@@ -31,7 +31,7 @@ MERN monorepo (npm workspaces): **client/** Vite + React 19 + TypeScript + Tailw
 **server/** Express 4 + TypeScript + Mongoose 8 + JWT auth. Charts: Recharts. Animations: GSAP.
 
 - `npm install` (root) — installs both workspaces
-- `npm run dev` (root) — server (:5000) + client (:5173, proxies `/api` → server) via concurrently
+- `npm run dev` (root) — server (:5001) + client (:5173, proxies `/api` → server) via concurrently
 - `npm run build` (root) — **must pass before every push**
 - `npm run seed` — reset demo data (`server/src/seed.ts`)
 - Env: copy `.env.example` → `server/.env` (`MONGODB_URI`, `JWT_SECRET`)
@@ -65,7 +65,7 @@ design/mockup.svg   # Excalidraw mockup of all 9 screens
 
 ## Conventions
 
-- Base URL: `/api` (Vite dev proxy → `http://localhost:5000`).
+- Base URL: `/api` (Vite dev proxy → `http://localhost:5001`).
 - Every response uses the envelope:
   ```ts
   { success: true,  data: T }                                  // 2xx

@@ -29,7 +29,7 @@ cp .env.example server/.env
 # 3. Seed demo data
 npm run seed
 
-# 4. Run (starts API on :5000 and client on :5173)
+# 4. Run (starts API on :5001 and client on :5173)
 npm run dev
 ```
 
