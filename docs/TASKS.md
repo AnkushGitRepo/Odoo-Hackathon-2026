@@ -33,7 +33,7 @@ Mongoose models already shipped in T5 — no need to wait on Ankush's routes to 
 |---|---|---|---|
 | M1 | Fleet / Vehicle Registry (`/api/vehicles` + `/fleet`) | Ankush | done |
 | M2 | Drivers (`/api/drivers` + `/drivers`) | Dev | todo |
-| M3 | Trips + rules engine (`lib/rules.ts`, `/api/trips` + `/trips`) | Ankush | todo |
+| M3 | Trips + rules engine (`lib/rules.ts`, `/api/trips` + `/trips`) | Ankush | done |
 | M4 | Maintenance (`/api/maintenance` + `/maintenance`) | Dev | todo |
 | M5 | Fuel & Expenses (`/api/fuel-logs`, `/api/expenses` + `/expenses`) | Dev | todo |
 | M6 | Analytics + CSV (`/api/analytics` + `/analytics`) | Dev | todo |
