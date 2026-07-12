@@ -96,13 +96,44 @@ Detailed, fully self-contained prompts:
 | S5 | Security self-check on Dev's own routes: RBAC guards match the matrix exactly, no `any`, every write endpoint Zod-validated, no leftover `console.log` | Dev | done |
 | S6 | *Optional stretch, only if time remains*: PDF export on the Analytics page, alongside the existing CSV export | Dev | done |
 
-## Phase 6 — Deployment (deferred to the very end)
+## Phase 6 — Deployment
 
-Intentionally last, run only after Phase 5 is fully done and the repo is otherwise submission-
-ready. The hackathon brief's actual requirement is the public GitHub repo — a live URL is a
-bonus on top, not a substitute. Scope (client → Vercel, API → a Node host) to be planned in
-detail immediately before execution, since it touches external accounts/credentials neither of
-us should assume access to mid-plan.
+Phase 5 (S1-S6) is done on both sides. This is the last phase: a live URL on top of the
+already-complete, already-submittable GitHub repo. Confirmed via the Vercel MCP tool that
+Ankush has working access to a Vercel team (`ankushgupta`, no existing TransitOps project —
+clean slate) that already uses a `*-client` + `*-api` two-project pattern for other apps, so
+that's the architecture here too: **`transitops-client`** (static Vite build) and
+**`transitops-api`** (the Express app as a Vercel serverless function), same account, no new
+credentials needed from anyone.
+
+This phase is **not** naturally split by file ownership the way Phases 2/3/5 were — deployment
+is one continuous, hard-to-reverse chain of steps (restructure → deploy API → deploy client
+pointed at it → close the loop on CORS → verify live), so it's owned end to end by Ankush, who
+has the only working deployment access. Dev's role is real but deliberately lighter: verify the
+*live* app once it's up (things that only break in production — CORS, absolute vs. relative
+URLs, cold starts — don't show up in local dev), and close out the hackathon submission on his
+side.
+
+**Ankush will pause for explicit confirmation before the two irreversible-ish steps** (setting
+real production secrets in Vercel, and the actual `target: "production"` deploy call) rather
+than running them autonomously — creating live public infrastructure with real credentials is
+exactly the kind of action that warrants a checkpoint, per how this whole project has been run.
+
+Detailed, fully self-contained prompts:
+- Ankush: [docs/PROMPT_ANKUSH_PHASE6.md](./PROMPT_ANKUSH_PHASE6.md)
+- Dev: [docs/PROMPT_DEV_PHASE6.md](./PROMPT_DEV_PHASE6.md)
+
+| ID | Task | Owner | Status |
+|---|---|---|---|
+| V1 | Client: make the API base URL environment-driven (`VITE_API_URL`, falls back to `/api` so local dev is untouched) | Ankush | todo |
+| V2 | Server: add a Vercel-compatible serverless entry point (`server/api/index.ts`, cached Mongoose connection across invocations) without touching the existing `npm run dev` traditional listener | Ankush | todo |
+| V3 | Deploy `transitops-api` to Vercel (preview first, then production after confirmation), set `MONGODB_URI` + `JWT_SECRET` env vars | Ankush | todo |
+| V4 | Deploy `transitops-client` to Vercel pointed at the live API URL (preview first, then production after confirmation) | Ankush | todo |
+| V5 | Close the loop: set the API's `CLIENT_ORIGIN` to the real deployed client URL, redeploy the API | Ankush | todo |
+| V6 | Post-deploy smoke test against the **live** URLs (not localhost) — re-run the N6 example workflow end to end | Ankush | todo |
+| V7 | README: add the live URL, final submission pass | Ankush | todo |
+| V8 | Live-environment QA on Dev's four modules (Drivers, Maintenance, Fuel & Expenses, Analytics) against the deployed URL, once V4-V6 are done — production-only bugs (CORS, cold starts, absolute-URL assumptions) don't show up locally | Dev | todo |
+| V9 | Final submission check on Dev's side: confirm his own commits are clean and well-messaged (hackathon grades individual contribution), nothing left half-done | Dev | todo |
 
 ## Polish (superseded)
 
