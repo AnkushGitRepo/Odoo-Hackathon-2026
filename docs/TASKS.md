@@ -61,7 +61,7 @@ Detailed, fully self-contained prompts (everything needed with zero back-and-for
 
 | ID | Task | Owner | Status |
 |---|---|---|---|
-| N1 | **Fix regression**: `/api/trips` returns 404 — trips router got dropped from `server/src/index.ts` (likely lost in the M2/M4/M5/M6 merge); restore the mount, full re-verification | Ankush | todo |
+| N1 | **Fix regression**: `/api/trips` returns 404 — trips router got dropped from `server/src/index.ts` (likely lost in the M2/M4/M5/M6 merge); restore the mount, full re-verification | Ankush | done |
 | N2 | Dark mode — shared infra (toggle, `useTheme`, Tailwind `@custom-variant dark`, AppShell/Modal/StatusBadge tokens) + Ankush's own pages (Dashboard, Fleet, Trips + subcomponents, Settings). Landing/Auth stay light per DESIGN.md | Ankush | done |
 | N3 | Dark mode — Dev's four pages (Drivers, Maintenance, Expenses, Analytics), same convention as N2 | Dev | todo |
 | N4 | Responsive/mobile pass — Ankush's pages (Landing, Login/Signup, Dashboard, Fleet, Trips, Settings) | Ankush | todo |

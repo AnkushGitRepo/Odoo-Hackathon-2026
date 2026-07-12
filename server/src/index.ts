@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import authRouter from "./routes/auth.js";
 import dashboardRouter from "./routes/dashboard.js";
 import vehiclesRouter from "./routes/vehicles.js";
+import tripsRouter from "./routes/trips.js";
 import driversRouter from "./routes/drivers.js";
 import maintenanceRouter from "./routes/maintenance.js";
 import fuelLogsRouter from "./routes/fuelLogs.js";
@@ -24,6 +25,7 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", dashboardRouter);
 app.use("/api/vehicles", vehiclesRouter);
+app.use("/api/trips", tripsRouter);
 app.use("/api/drivers", driversRouter);
 app.use("/api/maintenance", maintenanceRouter);
 app.use("/api/fuel-logs", fuelLogsRouter);

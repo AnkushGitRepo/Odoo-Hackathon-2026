@@ -423,3 +423,10 @@ at least "view"; Analytics is hidden for DISPATCHER and SAFETY_OFFICER.
 - Each member commits their **own** work under their own git identity (contribution scoring).
 - Before push: `npm run build` must succeed. Never push broken builds — teammate pulls hourly.
 - Pull before starting; claim tasks in `docs/TASKS.md` before touching their files.
+- **After any merge that touches `server/src/index.ts`: diff it and confirm every router
+  import + `app.use()` mount is still present.** Git's line-based 3-way merge does not
+  guarantee both sides' independently-inserted lines survive when the surrounding context
+  differs — this exact failure mode silently dropped the trips router mount during the
+  Phase 2 → Phase 3 merge (D-034) with zero conflict reported. A quick `grep -c "app.use(\"/api/"
+  server/src/index.ts` before and after a merge (compare against the number of route files
+  in `server/src/routes/`) catches this in seconds.
