@@ -1,7 +1,7 @@
 import PlaceholderPage from "../components/PlaceholderPage";
 
 /** One stub per module page — replaced one by one as slices M1-M8 land.
- *  FleetPage shipped (M1) and moved to ./fleet/FleetPage.tsx. */
+ *  FleetPage (M1) and TripsPage (M3) shipped and moved to their own folders. */
 
 export function DriversPage() {
   return (
@@ -9,16 +9,6 @@ export function DriversPage() {
       title="Drivers"
       description="Driver profiles with license expiry tracking, safety scores, and duty status."
       task="M2"
-    />
-  );
-}
-
-export function TripsPage() {
-  return (
-    <PlaceholderPage
-      title="Trips"
-      description="Trip dispatcher with the Draft to Dispatched to Completed lifecycle and capacity checks."
-      task="M3"
     />
   );
 }

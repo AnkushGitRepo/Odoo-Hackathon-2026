@@ -7,11 +7,14 @@ import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
 import FleetPage from "./pages/fleet/FleetPage";
-import { TripsPage, SettingsPage } from "./pages/modules";
-import DriversPage from "./pages/drivers/DriversPage";
-import MaintenancePage from "./pages/maintenance/MaintenancePage";
-import ExpensesPage from "./pages/expenses/ExpensesPage";
-import AnalyticsPage from "./pages/analytics/AnalyticsPage";
+import TripsPage from "./pages/trips/TripsPage";
+import {
+  AnalyticsPage,
+  DriversPage,
+  ExpensesPage,
+  MaintenancePage,
+  SettingsPage,
+} from "./pages/modules";
 
 export default function App() {
   return (

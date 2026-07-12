@@ -53,7 +53,7 @@ async function main() {
   if (MONGODB_URI.includes("<")) {
     console.error(
       "MONGODB_URI still contains .env.example placeholders (<user>/<password>/<cluster>).\n" +
-        "Replace it with the real Atlas connection string — ask the team lead for server/.env values.",
+      "Replace it with the real Atlas connection string — ask the team lead for server/.env values.",
     );
     process.exit(1);
   }
