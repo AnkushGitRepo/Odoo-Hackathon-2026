@@ -60,7 +60,7 @@ export default function FleetPage() {
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
-          className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm"
+          className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value="">Type: All</option>
           {TYPES.map((t) => (
@@ -72,7 +72,7 @@ export default function FleetPage() {
         <select
           value={status}
           onChange={(e) => setStatus(e.target.value)}
-          className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm"
+          className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
         >
           <option value="">Status: All</option>
           {STATUSES.map((s) => (
@@ -87,15 +87,15 @@ export default function FleetPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search reg. no..."
-            className="rounded-xl border border-mist-300 bg-white py-2 pr-3 pl-9 text-sm"
+            className="rounded-xl border border-mist-300 bg-white py-2 pr-3 pl-9 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           />
         </div>
       </div>
 
-      <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)]">
+      <div className="mt-6 overflow-x-auto rounded-2xl bg-white shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
         <table className="w-full text-left text-sm">
           <thead>
-            <tr className="text-xs text-ink-500 uppercase">
+            <tr className="text-xs text-ink-500 uppercase dark:text-slate-400">
               <th className="px-6 py-3 font-semibold">Reg. No.</th>
               <th className="px-6 py-3 font-semibold">Name/Model</th>
               <th className="px-6 py-3 font-semibold">Type</th>
@@ -109,20 +109,20 @@ export default function FleetPage() {
           <tbody>
             {vehicles === null && (
               <tr>
-                <td colSpan={8} className="px-6 py-8 text-center text-ink-500">
+                <td colSpan={8} className="px-6 py-8 text-center text-ink-500 dark:text-slate-400">
                   Loading...
                 </td>
               </tr>
             )}
             {vehicles?.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-6 py-8 text-center text-ink-500">
+                <td colSpan={8} className="px-6 py-8 text-center text-ink-500 dark:text-slate-400">
                   No vehicles match these filters.
                 </td>
               </tr>
             )}
             {vehicles?.map((vehicle) => (
-              <tr key={vehicle._id} className="border-t border-mist-100">
+              <tr key={vehicle._id} className="border-t border-mist-100 dark:border-slate-800">
                 <td className="px-6 py-3 font-semibold">{vehicle.registrationNumber}</td>
                 <td className="px-6 py-3">{vehicle.name}</td>
                 <td className="px-6 py-3">{vehicle.type}</td>
@@ -160,7 +160,7 @@ export default function FleetPage() {
         </table>
       </div>
 
-      <p className="mt-4 text-xs text-ink-500">
+      <p className="mt-4 text-xs text-ink-500 dark:text-slate-400">
         Rule: Registration No. must be unique · Retired/In Shop vehicles are hidden from Trip
         Dispatcher.
       </p>

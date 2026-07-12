@@ -33,18 +33,18 @@ export default function TripCard({
               : "";
 
   return (
-    <div className="rounded-2xl bg-white p-5 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)]">
+    <div className="rounded-2xl bg-white p-5 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-bold">{trip.code}</p>
-          <p className="mt-0.5 text-xs text-ink-500">{assignment}</p>
+          <p className="mt-0.5 text-xs text-ink-500 dark:text-slate-400">{assignment}</p>
         </div>
         <StatusBadge status={trip.status} />
       </div>
       <p className="mt-3 text-sm">
-        {trip.source} <span className="text-ink-500">-&gt;</span> {trip.destination}
+        {trip.source} <span className="text-ink-500 dark:text-slate-400">-&gt;</span> {trip.destination}
       </p>
-      <p className="mt-1 text-xs text-ink-500">{note}</p>
+      <p className="mt-1 text-xs text-ink-500 dark:text-slate-400">{note}</p>
 
       {canWrite && (
         <div className="mt-4 flex gap-3">

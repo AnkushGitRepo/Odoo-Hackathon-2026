@@ -65,7 +65,7 @@ export default function DashboardPage() {
           <select
             value={type}
             onChange={(e) => setType(e.target.value)}
-            className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm"
+            className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="">Vehicle Type: All</option>
             {TYPES.map((t) => (
@@ -77,7 +77,7 @@ export default function DashboardPage() {
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm"
+            className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="">Status: All</option>
             {STATUSES.map((s) => (
@@ -89,7 +89,7 @@ export default function DashboardPage() {
           <select
             value={region}
             onChange={(e) => setRegion(e.target.value)}
-            className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm"
+            className="rounded-xl border border-mist-300 bg-white px-3 py-2 text-sm dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="">Region: All</option>
             {regions.map((r) => (
@@ -102,7 +102,7 @@ export default function DashboardPage() {
       </div>
 
       {!pending && !kpis && (
-        <div className="mt-6 flex items-start gap-3 rounded-2xl bg-indigo-50 px-5 py-4 text-sm text-indigo-900">
+        <div className="mt-6 flex items-start gap-3 rounded-2xl bg-indigo-50 px-5 py-4 text-sm text-indigo-900 dark:bg-indigo-500/10 dark:text-indigo-300">
           <Info className="mt-0.5 size-4 shrink-0" strokeWidth={2} />
           Live numbers appear here once the API is reachable.
         </div>
@@ -112,11 +112,11 @@ export default function DashboardPage() {
         {KPI_CARDS.map(({ key, label, suffix }) => (
           <div
             key={key}
-            className="rounded-2xl bg-white p-5 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)]"
+            className="rounded-2xl bg-white p-5 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900"
           >
             <p className="text-xs font-semibold tracking-wide text-ink-500 uppercase">{label}</p>
             {pending ? (
-              <div className="mt-3 h-8 w-16 animate-pulse rounded-lg bg-mist-100" />
+              <div className="mt-3 h-8 w-16 animate-pulse rounded-lg bg-mist-100 dark:bg-slate-800" />
             ) : (
               <p className="mt-2 text-3xl font-extrabold tracking-tight">
                 {kpis ? `${kpis[key] as number}${suffix ?? ""}` : "0"}
@@ -128,7 +128,7 @@ export default function DashboardPage() {
 
       <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {kpis && (
-          <div className="rounded-2xl bg-white p-6 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)]">
+          <div className="rounded-2xl bg-white p-6 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
             <h2 className="text-sm font-bold tracking-wide uppercase">Vehicle Status</h2>
             <div className="mt-4">
               <StatusDonut breakdown={kpis.vehicleStatusBreakdown} />
@@ -137,11 +137,11 @@ export default function DashboardPage() {
         )}
 
         {kpis && kpis.recentTrips.length > 0 && (
-          <div className="overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)]">
+          <div className="overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
             <h2 className="px-6 pt-5 text-sm font-bold tracking-wide uppercase">Recent Trips</h2>
             <table className="mt-3 w-full text-left text-sm">
               <thead>
-                <tr className="text-xs text-ink-500 uppercase">
+                <tr className="text-xs text-ink-500 uppercase dark:text-slate-400">
                   <th className="px-6 py-2 font-semibold">Trip</th>
                   <th className="px-6 py-2 font-semibold">Vehicle</th>
                   <th className="px-6 py-2 font-semibold">Driver</th>
@@ -150,7 +150,7 @@ export default function DashboardPage() {
               </thead>
               <tbody>
                 {kpis.recentTrips.map((trip) => (
-                  <tr key={trip._id} className="border-t border-mist-100">
+                  <tr key={trip._id} className="border-t border-mist-100 dark:border-slate-800">
                     <td className="px-6 py-3 font-semibold">{trip.code}</td>
                     <td className="px-6 py-3">{trip.vehicle?.name ?? "Unassigned"}</td>
                     <td className="px-6 py-3">{trip.driver?.name ?? "Unassigned"}</td>

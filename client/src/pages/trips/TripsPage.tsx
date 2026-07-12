@@ -54,7 +54,10 @@ export default function TripsPage() {
       </div>
 
       {error && (
-        <div role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div
+          role="alert"
+          className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-400"
+        >
           {error}
         </div>
       )}
@@ -69,9 +72,11 @@ export default function TripsPage() {
         <div className={canWrite ? "" : "lg:col-span-2"}>
           <h2 className="text-sm font-bold tracking-wide uppercase">Live Board</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {trips === null && <p className="text-sm text-ink-500">Loading...</p>}
+            {trips === null && (
+              <p className="text-sm text-ink-500 dark:text-slate-400">Loading...</p>
+            )}
             {trips?.length === 0 && (
-              <p className="text-sm text-ink-500">No trips yet.</p>
+              <p className="text-sm text-ink-500 dark:text-slate-400">No trips yet.</p>
             )}
             {trips?.map((trip) => (
               <TripCard

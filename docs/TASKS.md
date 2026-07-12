@@ -43,14 +43,44 @@ Mongoose models already shipped in T5 — no need to wait on Ankush's routes to 
 
 Dev's detailed task prompt: [docs/PROMPT_DEV_PHASE2.md](./PROMPT_DEV_PHASE2.md).
 
-## Polish (last)
+## Phase 3 — Polish & Launch Readiness
+
+All M1-M8 module slices are done. Phase 3 is the final pass before the hackathon deadline:
+a real regression to fix, dark mode finished on every page, a responsive pass, an end-to-end
+correctness check, and a fresh-clone dry run so the judges' first `npm install` doesn't fail.
+
+Split so neither of us touches the other's files: Ankush owns the shared shell/infra plus his
+own pages (Landing, Auth, Dashboard, Fleet, Trips, Settings) and the two whole-system checks
+(E2E smoke, fresh-clone test). Dev owns dark mode + responsive on his own four pages (Drivers,
+Maintenance, Expenses, Analytics), using the exact convention Ankush already shipped on his
+pages — copy the pattern, no invention needed.
+
+Detailed, fully self-contained prompts (everything needed with zero back-and-forth):
+- Ankush: [docs/PROMPT_ANKUSH_PHASE3.md](./PROMPT_ANKUSH_PHASE3.md)
+- Dev: [docs/PROMPT_DEV_PHASE3.md](./PROMPT_DEV_PHASE3.md)
 
 | ID | Task | Owner | Status |
 |---|---|---|---|
-| P1 | Responsive/mobile pass on all pages | — | todo |
-| P2 | Dark mode (app pages) + remaining GSAP micro-interactions | — | todo |
-| P3 | E2E smoke of the Section-5 example workflow (agent-browser) | — | todo |
-| P4 | Fresh-clone test + README demo script | — | todo |
+| N1 | **Fix regression**: `/api/trips` returns 404 — trips router got dropped from `server/src/index.ts` (likely lost in the M2/M4/M5/M6 merge); restore the mount, full re-verification | Ankush | todo |
+| N2 | Dark mode — shared infra (toggle, `useTheme`, Tailwind `@custom-variant dark`, AppShell/Modal/StatusBadge tokens) + Ankush's own pages (Dashboard, Fleet, Trips + subcomponents, Settings). Landing/Auth stay light per DESIGN.md | Ankush | done |
+| N3 | Dark mode — Dev's four pages (Drivers, Maintenance, Expenses, Analytics), same convention as N2 | Dev | todo |
+| N4 | Responsive/mobile pass — Ankush's pages (Landing, Login/Signup, Dashboard, Fleet, Trips, Settings) | Ankush | todo |
+| N5 | Responsive/mobile pass — Dev's pages (Drivers, Maintenance, Expenses, Analytics) | Dev | todo |
+| N6 | E2E smoke test of the full Section-5 example workflow (register vehicle → driver → trip → dispatch → complete → maintenance → analytics), documented as a repeatable script | Ankush | todo |
+| N7 | Fresh-clone test (simulate a judge's first clone: `npm install`, seed, run) + polish README with a demo script for judges | Ankush | todo |
+| N8 | *Optional stretch, only if time remains*: license-expiry reminder banner on the Drivers page (bonus feature from the hackathon brief — UI banner only, no real email service) | Dev | todo |
+
+## Polish (superseded)
+
+The four generic tasks below are superseded by the detailed N1-N8 breakdown above; kept only
+for history.
+
+| ID | Task | Owner | Status |
+|---|---|---|---|
+| P1 | Responsive/mobile pass on all pages | — | superseded by N4/N5 |
+| P2 | Dark mode (app pages) + remaining GSAP micro-interactions | — | superseded by N2/N3 |
+| P3 | E2E smoke of the Section-5 example workflow (agent-browser) | — | superseded by N6 |
+| P4 | Fresh-clone test + README demo script | — | superseded by N7 |
 
 ## Dev Panchal Onboarding (Antigravity)
 

@@ -6,8 +6,10 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
+  Moon,
   Route as RouteIcon,
   Settings,
+  Sun,
   Truck,
   Users,
   Wrench,
@@ -16,6 +18,7 @@ import {
 import { useAuth } from "../lib/auth";
 import { can, type Module } from "../lib/rbac";
 import { ROLE_LABELS } from "../lib/types";
+import { useTheme } from "../lib/useTheme";
 
 const NAV_ITEMS: Array<{
   module: Module;
@@ -50,7 +53,7 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
             `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
               isActive
                 ? "bg-indigo-600 text-white"
-                : "text-ink-500 hover:bg-mist-100 hover:text-ink-900"
+                : "text-ink-500 hover:bg-mist-100 hover:text-ink-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             }`
           }
         >
@@ -64,8 +67,8 @@ function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 
 function Brand() {
   return (
-    <div className="flex h-16 items-center gap-2 px-6 text-lg font-bold tracking-tight text-ink-900">
-      <span className="grid size-8 place-items-center rounded-lg bg-ink-900 text-white">
+    <div className="flex h-16 items-center gap-2 px-6 text-lg font-bold tracking-tight text-ink-900 dark:text-slate-100">
+      <span className="grid size-8 place-items-center rounded-lg bg-ink-900 text-white dark:bg-indigo-600">
         <Truck className="size-4.5" strokeWidth={2} />
       </span>
       TransitOps
@@ -77,6 +80,7 @@ export default function AppShell() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [theme, toggleTheme] = useTheme();
 
   if (!user) return null;
 
@@ -88,9 +92,9 @@ export default function AppShell() {
     .toUpperCase();
 
   return (
-    <div className="flex min-h-[100dvh] bg-mist-100 font-sans text-ink-900 antialiased">
+    <div className="flex min-h-[100dvh] bg-mist-100 font-sans text-ink-900 antialiased dark:bg-slate-950 dark:text-slate-100">
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-[100dvh] w-60 shrink-0 flex-col border-r border-ink-900/10 bg-white lg:flex">
+      <aside className="sticky top-0 hidden h-[100dvh] w-60 shrink-0 flex-col border-r border-ink-900/10 bg-white lg:flex dark:border-white/10 dark:bg-slate-900">
         <Brand />
         <div className="flex-1 overflow-y-auto py-2">
           <SidebarNav />
@@ -106,13 +110,13 @@ export default function AppShell() {
             className="absolute inset-0 bg-ink-900/40"
             onClick={() => setDrawerOpen(false)}
           />
-          <aside className="absolute inset-y-0 left-0 flex w-64 flex-col bg-white shadow-2xl">
+          <aside className="absolute inset-y-0 left-0 flex w-64 flex-col bg-white shadow-2xl dark:bg-slate-900">
             <div className="flex items-center justify-between pr-4">
               <Brand />
               <button
                 type="button"
                 aria-label="Close menu"
-                className="rounded-lg p-2 text-ink-500 hover:bg-mist-100"
+                className="rounded-lg p-2 text-ink-500 hover:bg-mist-100 dark:text-slate-400 dark:hover:bg-slate-800"
                 onClick={() => setDrawerOpen(false)}
               >
                 <X className="size-5" />
@@ -127,24 +131,38 @@ export default function AppShell() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         {/* Topbar */}
-        <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-ink-900/10 bg-white/80 px-4 backdrop-blur-md sm:px-6">
+        <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-ink-900/10 bg-white/80 px-4 backdrop-blur-md sm:px-6 dark:border-white/10 dark:bg-slate-900/80">
           <button
             type="button"
             aria-label="Open menu"
-            className="rounded-lg p-2 text-ink-500 hover:bg-mist-100 lg:hidden"
+            className="rounded-lg p-2 text-ink-500 hover:bg-mist-100 lg:hidden dark:text-slate-400 dark:hover:bg-slate-800"
             onClick={() => setDrawerOpen(true)}
           >
             <Menu className="size-5" />
           </button>
 
-          <div className="flex flex-1 items-center justify-end gap-4">
+          <div className="flex flex-1 items-center justify-end gap-2 sm:gap-4">
+            <button
+              type="button"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              onClick={toggleTheme}
+              className="rounded-xl p-2.5 text-ink-500 transition-colors hover:bg-mist-100 hover:text-ink-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+            >
+              {theme === "dark" ? (
+                <Sun className="size-4.5" strokeWidth={1.75} />
+              ) : (
+                <Moon className="size-4.5" strokeWidth={1.75} />
+              )}
+            </button>
             <div className="flex items-center gap-3">
               <span className="grid size-9 place-items-center rounded-full bg-indigo-600 text-xs font-bold text-white">
                 {initials}
               </span>
               <div className="hidden text-right sm:block">
                 <p className="text-sm leading-tight font-semibold">{user.name}</p>
-                <p className="text-xs leading-tight text-ink-500">{ROLE_LABELS[user.role]}</p>
+                <p className="text-xs leading-tight text-ink-500 dark:text-slate-400">
+                  {ROLE_LABELS[user.role]}
+                </p>
               </div>
             </div>
             <button
@@ -153,7 +171,7 @@ export default function AppShell() {
                 logout();
                 navigate("/login");
               }}
-              className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-ink-500 transition-colors hover:bg-mist-100 hover:text-ink-900"
+              className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-ink-500 transition-colors hover:bg-mist-100 hover:text-ink-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
               <LogOut className="size-4" strokeWidth={1.75} />
               <span className="hidden sm:inline">Sign out</span>

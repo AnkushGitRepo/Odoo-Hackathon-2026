@@ -18,7 +18,11 @@ export default function StatusDonut({
     .filter((d) => d.value > 0);
 
   if (data.length === 0) {
-    return <p className="text-sm text-ink-500">No vehicles match these filters.</p>;
+    return (
+      <p className="text-sm text-ink-500 dark:text-slate-400">
+        No vehicles match these filters.
+      </p>
+    );
   }
 
   return (
@@ -52,8 +56,10 @@ export default function StatusDonut({
               className="size-2.5 rounded-full"
               style={{ backgroundColor: COLORS[d.status] }}
             />
-            <span className="text-ink-700">{d.status.replace(/_/g, " ")}</span>
-            <span className="font-semibold text-ink-900">{d.value}</span>
+            <span className="text-ink-700 dark:text-slate-300">
+              {d.status.replace(/_/g, " ")}
+            </span>
+            <span className="font-semibold text-ink-900 dark:text-slate-100">{d.value}</span>
           </li>
         ))}
       </ul>

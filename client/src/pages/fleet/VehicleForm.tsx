@@ -57,13 +57,16 @@ export default function VehicleForm({
   }
 
   const inputClass =
-    "w-full rounded-xl border border-mist-300 bg-white px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:outline-none";
-  const labelClass = "text-sm font-semibold text-ink-700";
+    "w-full rounded-xl border border-mist-300 bg-white px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100";
+  const labelClass = "text-sm font-semibold text-ink-700 dark:text-slate-300";
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
       {error && (
-        <div role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div
+          role="alert"
+          className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-400"
+        >
           {error}
         </div>
       )}
@@ -158,7 +161,7 @@ export default function VehicleForm({
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-xl px-4 py-2.5 text-sm font-semibold text-ink-500 hover:bg-mist-100"
+          className="rounded-xl px-4 py-2.5 text-sm font-semibold text-ink-500 hover:bg-mist-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           Cancel
         </button>

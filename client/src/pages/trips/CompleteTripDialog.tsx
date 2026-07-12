@@ -4,8 +4,8 @@ import { apiPost, type ApiError } from "../../lib/api";
 import type { Trip } from "../../lib/types";
 
 const inputClass =
-  "w-full rounded-xl border border-mist-300 bg-white px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:outline-none";
-const labelClass = "text-sm font-semibold text-ink-700";
+  "w-full rounded-xl border border-mist-300 bg-white px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100";
+const labelClass = "text-sm font-semibold text-ink-700 dark:text-slate-300";
 
 export default function CompleteTripDialog({
   trip,
@@ -104,7 +104,7 @@ export default function CompleteTripDialog({
           />
         </label>
 
-        <p className="text-xs text-ink-500">
+        <p className="text-xs text-ink-500 dark:text-slate-400">
           On Complete: odometer → fuel log → expenses → Vehicle &amp; Driver Available.
         </p>
 
@@ -112,7 +112,7 @@ export default function CompleteTripDialog({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl px-4 py-2.5 text-sm font-semibold text-ink-500 hover:bg-mist-100"
+            className="rounded-xl px-4 py-2.5 text-sm font-semibold text-ink-500 hover:bg-mist-100 dark:text-slate-400 dark:hover:bg-slate-800"
           >
             Cancel
           </button>

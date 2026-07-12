@@ -1,9 +1,9 @@
 const TONE_CLASSES: Record<string, string> = {
-  green: "bg-green-100 text-green-700",
-  blue: "bg-blue-100 text-blue-700",
-  amber: "bg-amber-100 text-amber-800",
-  gray: "bg-mist-100 text-ink-500",
-  red: "bg-red-100 text-red-700",
+  green: "bg-green-100 text-green-700 dark:bg-green-500/15 dark:text-green-400",
+  blue: "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400",
+  amber: "bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-400",
+  gray: "bg-mist-100 text-ink-500 dark:bg-slate-800 dark:text-slate-400",
+  red: "bg-red-100 text-red-700 dark:bg-red-500/15 dark:text-red-400",
 };
 
 /** Status → color tone per DESIGN.md. Shared across Fleet/Drivers/Trips/Maintenance. */
