@@ -5,6 +5,11 @@ import mongoose from "mongoose";
 import authRouter from "./routes/auth.js";
 import dashboardRouter from "./routes/dashboard.js";
 import vehiclesRouter from "./routes/vehicles.js";
+import driversRouter from "./routes/drivers.js";
+import maintenanceRouter from "./routes/maintenance.js";
+import fuelLogsRouter from "./routes/fuelLogs.js";
+import expensesRouter from "./routes/expenses.js";
+import analyticsRouter from "./routes/analytics.js";
 import { fail } from "./lib/respond.js";
 
 const app = express();
@@ -19,6 +24,11 @@ app.get("/api/health", (_req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", dashboardRouter);
 app.use("/api/vehicles", vehiclesRouter);
+app.use("/api/drivers", driversRouter);
+app.use("/api/maintenance", maintenanceRouter);
+app.use("/api/fuel-logs", fuelLogsRouter);
+app.use("/api/expenses", expensesRouter);
+app.use("/api/analytics", analyticsRouter);
 
 app.use("/api", (_req, res) => {
   fail(res, 404, "NOT_FOUND", "No such endpoint.");

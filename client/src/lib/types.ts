@@ -97,3 +97,58 @@ export interface DashboardKpis {
   vehicleStatusBreakdown: Record<VehicleStatus, number>;
   recentTrips: Trip[];
 }
+
+export interface MaintenanceLog {
+  _id: string;
+  vehicle: Vehicle;
+  serviceType: string;
+  cost: number;
+  date: string;
+  status: MaintenanceStatus;
+  closedAt: string | null;
+  createdAt: string;
+}
+
+export interface FuelLog {
+  _id: string;
+  vehicle: Vehicle;
+  tripId: string | null;
+  liters: number;
+  cost: number;
+  date: string;
+  createdAt: string;
+}
+
+export interface Expense {
+  _id: string;
+  vehicle: Vehicle;
+  tripId: string | null;
+  category: ExpenseCategory;
+  amount: number;
+  date: string;
+  note: string | null;
+  createdAt: string;
+}
+
+export interface ExpenseSummaryRow {
+  vehicleId: string;
+  registrationNumber: string;
+  name: string;
+  fuelCost: number;
+  maintenanceCost: number;
+  tollMiscCost: number;
+  operationalCost: number;
+}
+
+export interface AnalyticsData {
+  fuelEfficiencyKmPerL: number | null;
+  fleetUtilizationPct: number;
+  totalOperationalCost: number;
+  avgVehicleRoiPct: number | null;
+  monthlyRevenue: Array<{ month: string; revenue: number }>;
+  costliestVehicles: Array<{ vehicleId: string; registrationNumber: string; name: string; operationalCost: number }>;
+  vehicleRoi: Array<{
+    vehicleId: string; registrationNumber: string; name: string;
+    revenue: number; fuelCost: number; maintenanceCost: number; acquisitionCost: number; roiPct: number;
+  }>;
+}
