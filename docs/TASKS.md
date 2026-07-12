@@ -89,7 +89,7 @@ Detailed, fully self-contained prompts:
 
 | ID | Task | Owner | Status |
 |---|---|---|---|
-| S1 | Security hardening: audit for hardcoded secrets, confirm `.gitignore` covers every `.env`, rate-limit `/api/auth/login` + `/api/auth/register`, review CORS + error-message leakage | Ankush | todo |
+| S1 | Security hardening: audit for hardcoded secrets, confirm `.gitignore` covers every `.env`, rate-limit `/api/auth/login` + `/api/auth/register`, review CORS + error-message leakage | Ankush | done |
 | S2 | Adversarial QA + edge-case re-verification on Ankush's pages/routes (Fleet, Trips + rules engine, Dashboard, Settings) | Ankush | todo |
 | S3 | Docs & submission checklist: confirm repo visibility, every doc matches shipped reality, commit hygiene (no stray files), `docs/TASKS.md` accurate | Ankush | todo |
 | S4 | Full manual QA pass across Dev's four modules (Drivers, Maintenance, Expenses, Analytics) as all 4 roles; document and fix anything found | Dev | todo |

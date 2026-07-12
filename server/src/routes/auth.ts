@@ -1,6 +1,7 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import rateLimit from "express-rate-limit";
 import { z } from "zod";
 import { User } from "../models/User.js";
 import { ROLES } from "../models/constants.js";
@@ -8,6 +9,19 @@ import { fail, ok } from "../lib/respond.js";
 import { requireAuth, type AuthedRequest } from "../middleware/auth.js";
 
 const router = Router();
+
+// Brute-force / credential-stuffing guard on the two write-with-credentials
+// endpoints. Kept off GET /me and the rest of the API — read-heavy demo
+// clicking shouldn't ever hit a limit.
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler: (_req, res) => {
+    fail(res, 429, "RATE_LIMITED", "Too many attempts. Try again in a few minutes.");
+  },
+});
 
 const registerSchema = z.object({
   name: z.string().trim().min(1, "Name is required."),
@@ -27,7 +41,7 @@ function signToken(userId: string, role: string): string {
   });
 }
 
-router.post("/register", async (req, res, next) => {
+router.post("/register", authLimiter, async (req, res, next) => {
   try {
     const parsed = registerSchema.safeParse(req.body);
     if (!parsed.success) {
@@ -52,7 +66,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res, next) => {
+router.post("/login", authLimiter, async (req, res, next) => {
   try {
     const parsed = loginSchema.safeParse(req.body);
     if (!parsed.success) {

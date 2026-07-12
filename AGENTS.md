@@ -370,7 +370,11 @@ Success (atomic): record → `COMPLETED` (+`closedAt`), vehicle → `AVAILABLE` 
 `DRIVER_LICENSE_EXPIRED` 400 · `DRIVER_SUSPENDED` 400 · `DRIVER_NOT_AVAILABLE` 400 ·
 `TRIP_NOT_DRAFT` 400 · `TRIP_UNASSIGNED` 400 · `TRIP_NOT_DISPATCHED` 400 ·
 `TRIP_ALREADY_CLOSED` 400 · `ODOMETER_INVALID` 400 · `CAPACITY_EXCEEDED` 400 ·
-`MAINTENANCE_ALREADY_ACTIVE` 400 · `MAINTENANCE_ALREADY_CLOSED` 400
+`MAINTENANCE_ALREADY_ACTIVE` 400 · `MAINTENANCE_ALREADY_CLOSED` 400 · `RATE_LIMITED` 429
+
+`RATE_LIMITED` (D-039, S1): `POST /api/auth/login` and `POST /api/auth/register` are limited to
+20 requests per 15 minutes per IP via `express-rate-limit`, guarding against brute-force and
+credential-stuffing. No other endpoint is rate-limited.
 
 ## RBAC Matrix (module → role access; "view" = GET only, "full" = GET + writes)
 
