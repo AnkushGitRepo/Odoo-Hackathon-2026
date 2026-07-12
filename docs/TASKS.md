@@ -67,7 +67,7 @@ Detailed, fully self-contained prompts (everything needed with zero back-and-for
 | N4 | Responsive/mobile pass — Ankush's pages (Landing, Login/Signup, Dashboard, Fleet, Trips, Settings) | Ankush | done |
 | N5 | Responsive/mobile pass — Dev's pages (Drivers, Maintenance, Expenses, Analytics) | Dev | todo |
 | N6 | E2E smoke test of the full Section-5 example workflow (register vehicle → driver → trip → dispatch → complete → maintenance → analytics), documented as a repeatable script | Ankush | done |
-| N7 | Fresh-clone test (simulate a judge's first clone: `npm install`, seed, run) + polish README with a demo script for judges | Ankush | todo |
+| N7 | Fresh-clone test (simulate a judge's first clone: `npm install`, seed, run) + polish README with a demo script for judges | Ankush | done |
 | N8 | *Optional stretch, only if time remains*: license-expiry reminder banner on the Drivers page (bonus feature from the hackathon brief — UI banner only, no real email service) | Dev | todo |
 
 ## Polish (superseded)
