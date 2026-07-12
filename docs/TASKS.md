@@ -70,6 +70,40 @@ Detailed, fully self-contained prompts (everything needed with zero back-and-for
 | N7 | Fresh-clone test (simulate a judge's first clone: `npm install`, seed, run) + polish README with a demo script for judges | Ankush | done |
 | N8 | *Optional stretch, only if time remains*: license-expiry reminder banner on the Drivers page (bonus feature from the hackathon brief — UI banner only, no real email service) | Dev | done |
 
+## Phase 5 — QA, Security & Submission Readiness
+
+Every module (M1-M8) and all of Phase 3's polish (dark mode, responsive, E2E smoke, fresh-clone
+test) are done on both sides. Phase 5 is **not** deployment (deliberately deferred to a final
+Phase 6, run only once everything else is settled) — it's the adversarial pass: hunt for bugs
+the build-it-and-move-on pace of Phases 1-3 didn't catch, harden the server, and make sure the
+repo itself is submission-ready.
+
+Split by file ownership again, same pattern as Phases 2-3, plus one shared step at the end
+neither of us can skip: after Dev's push, `git pull`, full rebuild, and a TASKS.md status
+sanity-check — Phase 3 already taught us a merge can silently revert doc status or drop a route
+mount, so treat every pull as something to verify, not just trust.
+
+Detailed, fully self-contained prompts:
+- Ankush: [docs/PROMPT_ANKUSH_PHASE5.md](./PROMPT_ANKUSH_PHASE5.md)
+- Dev: [docs/PROMPT_DEV_PHASE5.md](./PROMPT_DEV_PHASE5.md)
+
+| ID | Task | Owner | Status |
+|---|---|---|---|
+| S1 | Security hardening: audit for hardcoded secrets, confirm `.gitignore` covers every `.env`, rate-limit `/api/auth/login` + `/api/auth/register`, review CORS + error-message leakage | Ankush | todo |
+| S2 | Adversarial QA + edge-case re-verification on Ankush's pages/routes (Fleet, Trips + rules engine, Dashboard, Settings) | Ankush | todo |
+| S3 | Docs & submission checklist: confirm repo visibility, every doc matches shipped reality, commit hygiene (no stray files), `docs/TASKS.md` accurate | Ankush | todo |
+| S4 | Full manual QA pass across Dev's four modules (Drivers, Maintenance, Expenses, Analytics) as all 4 roles; document and fix anything found | Dev | todo |
+| S5 | Security self-check on Dev's own routes: RBAC guards match the matrix exactly, no `any`, every write endpoint Zod-validated, no leftover `console.log` | Dev | todo |
+| S6 | *Optional stretch, only if time remains*: PDF export on the Analytics page, alongside the existing CSV export | Dev | todo |
+
+## Phase 6 — Deployment (deferred to the very end)
+
+Intentionally last, run only after Phase 5 is fully done and the repo is otherwise submission-
+ready. The hackathon brief's actual requirement is the public GitHub repo — a live URL is a
+bonus on top, not a substitute. Scope (client → Vercel, API → a Node host) to be planned in
+detail immediately before execution, since it touches external accounts/credentials neither of
+us should assume access to mid-plan.
+
 ## Polish (superseded)
 
 The four generic tasks below are superseded by the detailed N1-N8 breakdown above; kept only
