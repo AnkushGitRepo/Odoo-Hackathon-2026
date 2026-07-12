@@ -7,7 +7,13 @@ const inputClass =
   "w-full rounded-xl border border-mist-300 bg-white px-4 py-2.5 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100";
 const labelClass = "text-sm font-semibold text-ink-700 dark:text-slate-300";
 
-export default function TripForm({ onCreated }: { onCreated: () => void }) {
+export default function TripForm({
+  onCreated,
+  onCancel,
+}: {
+  onCreated: () => void;
+  onCancel: () => void;
+}) {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [drivers, setDrivers] = useState<Driver[] | "unavailable">([]);
 
@@ -73,16 +79,17 @@ export default function TripForm({ onCreated }: { onCreated: () => void }) {
   }
 
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
-      <h2 className="text-sm font-bold tracking-wide uppercase">Create Trip</h2>
-
+    <div className="flex flex-col gap-4">
       {error && (
-        <div role="alert" className="mt-4 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+        <div
+          role="alert"
+          className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700 dark:bg-red-500/10 dark:text-red-400"
+        >
           {error}
         </div>
       )}
 
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
           <span className={labelClass}>Source</span>
           <input
@@ -103,7 +110,7 @@ export default function TripForm({ onCreated }: { onCreated: () => void }) {
         </label>
       </div>
 
-      <label className="mt-4 flex flex-col gap-2">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Vehicle (available only)</span>
         <select className={inputClass} value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
           <option value="">Select a vehicle...</option>
@@ -115,7 +122,7 @@ export default function TripForm({ onCreated }: { onCreated: () => void }) {
         </select>
       </label>
 
-      <label className="mt-4 flex flex-col gap-2">
+      <label className="flex flex-col gap-2">
         <span className={labelClass}>Driver (available only)</span>
         <select
           className={inputClass}
@@ -138,7 +145,7 @@ export default function TripForm({ onCreated }: { onCreated: () => void }) {
         )}
       </label>
 
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
           <span className={labelClass}>Cargo Weight (kg)</span>
           <input
@@ -163,7 +170,7 @@ export default function TripForm({ onCreated }: { onCreated: () => void }) {
 
       {selectedVehicle && cargo > 0 && (
         <div
-          className={`mt-4 flex items-start gap-2 rounded-xl px-4 py-3 text-sm ${
+          className={`flex items-start gap-2 rounded-xl px-4 py-3 text-sm ${
             capacityExceeded
               ? "bg-amber-50 text-amber-900 dark:bg-amber-500/10 dark:text-amber-400"
               : "bg-green-50 text-green-800 dark:bg-green-500/10 dark:text-green-400"
@@ -183,10 +190,10 @@ export default function TripForm({ onCreated }: { onCreated: () => void }) {
         </div>
       )}
 
-      <div className="mt-5 flex flex-wrap justify-end gap-3">
+      <div className="flex flex-wrap justify-end gap-3">
         <button
           type="button"
-          onClick={reset}
+          onClick={onCancel}
           className="rounded-xl px-4 py-2.5 text-sm font-semibold text-ink-500 hover:bg-mist-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           Cancel

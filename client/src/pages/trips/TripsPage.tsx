@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { Plus } from "lucide-react";
 import { apiGet, apiPost, type ApiError } from "../../lib/api";
 import { useAuth } from "../../lib/auth";
 import { can } from "../../lib/rbac";
 import type { Trip } from "../../lib/types";
+import Modal from "../../components/Modal";
 import TripForm from "./TripForm";
 import TripCard from "./TripCard";
 import CompleteTripDialog from "./CompleteTripDialog";
@@ -14,6 +16,7 @@ export default function TripsPage() {
   const [trips, setTrips] = useState<Trip[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [completing, setCompleting] = useState<Trip | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   async function load() {
     const data = await apiGet<Trip[]>("/trips");
@@ -46,7 +49,19 @@ export default function TripsPage() {
 
   return (
     <div className="mx-auto max-w-6xl">
-      <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Trip Dispatcher</h1>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Trip Dispatcher</h1>
+        {canWrite && (
+          <button
+            type="button"
+            onClick={() => setShowCreateModal(true)}
+            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+          >
+            <Plus className="size-4" strokeWidth={2.25} />
+            Create Trip
+          </button>
+        )}
+      </div>
 
       {error && (
         <div
@@ -57,35 +72,39 @@ export default function TripsPage() {
         </div>
       )}
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
-        {canWrite && (
-          <div>
-            <TripForm onCreated={load} />
-          </div>
-        )}
-
-        <div className={canWrite ? "" : "lg:col-span-2"}>
-          <h2 className="text-sm font-bold tracking-wide uppercase">Live Board</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {trips === null && (
-              <p className="text-sm text-ink-500 dark:text-slate-400">Loading...</p>
-            )}
-            {trips?.length === 0 && (
-              <p className="text-sm text-ink-500 dark:text-slate-400">No trips yet.</p>
-            )}
-            {trips?.map((trip) => (
-              <TripCard
-                key={trip._id}
-                trip={trip}
-                canWrite={canWrite}
-                onDispatch={() => dispatch(trip)}
-                onComplete={() => setCompleting(trip)}
-                onCancel={() => cancel(trip)}
-              />
-            ))}
-          </div>
+      <div className="mt-6">
+        <h2 className="text-sm font-bold tracking-wide uppercase">Live Board</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {trips === null && (
+            <p className="text-sm text-ink-500 dark:text-slate-400">Loading...</p>
+          )}
+          {trips?.length === 0 && (
+            <p className="text-sm text-ink-500 dark:text-slate-400">No trips yet.</p>
+          )}
+          {trips?.map((trip) => (
+            <TripCard
+              key={trip._id}
+              trip={trip}
+              canWrite={canWrite}
+              onDispatch={() => dispatch(trip)}
+              onComplete={() => setCompleting(trip)}
+              onCancel={() => cancel(trip)}
+            />
+          ))}
         </div>
       </div>
+
+      {showCreateModal && (
+        <Modal title="Create Trip" onClose={() => setShowCreateModal(false)}>
+          <TripForm
+            onCancel={() => setShowCreateModal(false)}
+            onCreated={() => {
+              setShowCreateModal(false);
+              load();
+            }}
+          />
+        </Modal>
+      )}
 
       {completing && (
         <CompleteTripDialog
