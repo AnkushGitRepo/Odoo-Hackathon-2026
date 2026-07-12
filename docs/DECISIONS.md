@@ -17,4 +17,9 @@ entry if one must be reversed.
 | D-010 | 2026-07-12 | **Reverses D-001/D-005**: MERN stack — React SPA (Vite) + Express REST API monorepo, not Next.js | Team choice (Ankush). Client and server split cleanly between two devs; npm workspaces keep one repo |
 | D-011 | 2026-07-12 | **Reverses D-002 (partially)**: Mongoose ODM instead of Prisma; MongoDB stays | Team wanted plain MongoDB without Prisma; Mongoose confirmed over native driver for schema validation + unique indexes |
 | D-012 | 2026-07-12 | Auth = JWT (jsonwebtoken) + bcryptjs, `Authorization: Bearer` header; Auth.js dropped with Next.js | Standard MERN pattern; requireAuth/requireRole middleware enforce RBAC server-side |
-| D-013 | 2026-07-12 | API envelope `{ success, data?, error? }` on every endpoint | Consistent client handling + matches team convention |
+| D-013 | 2026-07-12 | API envelope `{ success, data?, error?, code?, details? }` on every endpoint | Consistent client handling; `code` is machine-stable, `error` is display-ready |
+| D-014 | 2026-07-12 | **Backend-first build order**; the API contract in AGENTS.md is binding — backend implements it exactly, frontend codes against it without guessing; contract changes go to AGENTS.md + this log BEFORE code | Two agents (Claude Code + Antigravity) must stay in sync without real-time coordination |
+| D-015 | 2026-07-12 | Tasks in docs/TASKS.md are unowned; claim by marking `doing` + your name and pushing the doc change | Team preference — flexible pickup over fixed ownership |
+| D-016 | 2026-07-12 | RBAC: writes strictly scoped per mockup matrix, but reads broadly shared (every role gets "view" on most modules) | Screens need vehicle/driver names to render; write-scoping is what the rules require. Analytics stays hidden from Dispatcher + Safety Officer |
+| D-017 | 2026-07-12 | Vehicle DELETE = soft retire (status `RETIRED`), documents never deleted | Preserves trip/expense history and ROI math |
+| D-018 | 2026-07-12 | Trip completion auto-creates a FuelLog from `fuelUsedL` + `fuelCost` | Matches mockup flow "On Complete: odometer → fuel log → expenses"; keeps fuel efficiency computable without double entry |

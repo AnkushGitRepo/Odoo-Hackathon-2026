@@ -27,35 +27,14 @@ server (Express, :5000)
 | **FuelLog** | vehicleId, tripId?, liters, cost, date | feeds fuel efficiency + operational cost |
 | **Expense** | tripId?, vehicleId, category (`TOLL` \| `MISC`), amount, date, note? | maintenance cost is **not** duplicated here — read from MaintenanceLog |
 
-## REST API (all JSON, envelope `{ success, data?, error? }`)
+## REST API
 
-```
-POST   /api/auth/login                 → { token, user }        public
-GET    /api/auth/me                                             auth
-
-GET|POST        /api/vehicles          list (filters) | create  FM full; D, FA view
-GET|PUT|DELETE  /api/vehicles/:id      read | update | retire
-GET    /api/vehicles/dispatchable      AVAILABLE only (rule 2)
-
-GET|POST        /api/drivers                                    FM, SO full
-PUT             /api/drivers/:id       incl. status toggle
-GET    /api/drivers/assignable         AVAILABLE + valid license (rule 3)
-
-GET|POST        /api/trips                                      D full; SO view
-POST   /api/trips/:id/dispatch         rules 2-6, atomic
-POST   /api/trips/:id/complete         rule 7 (+ odometer, fuel, revenue)
-POST   /api/trips/:id/cancel           rule 8
-
-GET|POST        /api/maintenance       rule 9 on create         FM full
-POST   /api/maintenance/:id/close      rule 10
-
-GET|POST        /api/fuel-logs                                  FA full
-GET|POST        /api/expenses                                   FA full
-
-GET    /api/dashboard/kpis             counts + utilization     all roles
-GET    /api/analytics                  efficiency, cost, ROI    FM view, FA full
-GET    /api/analytics/export.csv       CSV download
-```
+**The complete, binding endpoint contract (request/response shapes, error codes, RBAC per
+endpoint) lives in [AGENTS.md — API CONTRACT](./AGENTS.md).** It is maintained there and only
+there so the backend and frontend agents can never diverge. Summary of surface area:
+`/api/auth`, `/api/vehicles` (+`/dispatchable`), `/api/drivers` (+`/assignable`), `/api/trips`
+(+`/dispatch`, `/complete`, `/cancel`), `/api/maintenance` (+`/close`), `/api/fuel-logs`,
+`/api/expenses` (+`/summary`), `/api/dashboard/kpis`, `/api/analytics` (+`/export.csv`).
 
 ## State Machines
 
@@ -77,17 +56,12 @@ Multi-document transitions (dispatch/complete/cancel, maintenance open/close) ar
 Mongoose transactions on Atlas (replica set); fallback is ordered writes with compensating
 rollback if a step fails.
 
-## RBAC (spec = mockup screen 8; enforced by `requireRole` middleware)
+## RBAC
 
-| Role | Fleet | Drivers | Trips | Fuel/Exp | Analytics | Maintenance | Dashboard |
-|---|---|---|---|---|---|---|---|
-| Fleet Manager | full | full | – | – | view | full | view |
-| Dispatcher | view | – | full | – | – | – | view |
-| Safety Officer | – | full | view | – | – | – | view |
-| Financial Analyst | view | – | – | full | full | – | view |
-
-`can(role, module) → "full" | "view" | null`, defined once on the server and mirrored in
-`client/src/lib/rbac.ts` (client copy only drives nav visibility; server is authoritative).
+Enforced by `requireRole` middleware; the authoritative matrix lives in
+[AGENTS.md — RBAC Matrix](./AGENTS.md) (writes strictly scoped per the mockup, reads broadly
+shared — see D-016). `can(role, module) → "full" | "view" | null`, defined once on the server
+and mirrored in `client/src/lib/rbac.ts` (client copy only drives nav visibility).
 
 ## Derived Metrics (computed in `server/src/lib/metrics.ts`, no stored aggregates)
 
