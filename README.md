@@ -80,6 +80,6 @@ Open http://localhost:5173
 ## Team
 
 - Ankush Gupta ([@AnkushGitRepo](https://github.com/AnkushGitRepo), ankushgupta1806@gmail.com) — Claude Code
-- Teammate — Antigravity
+- Dev Panchal — Antigravity
 
 Both members commit hourly to `main` per hackathon rules.

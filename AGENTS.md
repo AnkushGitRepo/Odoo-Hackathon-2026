@@ -180,13 +180,21 @@ interface Expense {
 
 | Method & Path | Roles | Purpose |
 |---|---|---|
+| `POST /api/auth/register` | public | Signup with role selection |
 | `POST /api/auth/login` | public | Login |
 | `GET /api/auth/me` | any authed | Current user |
+
+**POST /api/auth/register**
+Request: `{ name: string, email: string, password: string (min 8), role: Role }`
+Role is chosen at signup (hackathon simplification — see D-020); email is trimmed + lowercased.
+201: `{ success: true, data: { token: string, user: User } }` — same shape as login; the client is signed in immediately.
+409 `DUPLICATE_EMAIL` — "An account with this email already exists."
 
 **POST /api/auth/login**
 Request: `{ email: string, password: string }`
 200: `{ success: true, data: { token: string, user: User } }` — token is a JWT valid 24h, payload `{ sub: userId, role }`.
 401 `INVALID_CREDENTIALS` — "Invalid email or password." (same message for unknown email vs wrong password).
+**No role field at login** — role comes from the account (D-007).
 
 **GET /api/auth/me** → 200 `{ data: User }`. Used by the client on refresh to restore session.
 
@@ -356,7 +364,7 @@ Success (atomic): record → `COMPLETED` (+`closedAt`), vehicle → `AVAILABLE` 
 ## Error Code Index
 
 `UNAUTHORIZED` 401 · `FORBIDDEN` 403 · `NOT_FOUND` 404 · `VALIDATION` 400 ·
-`INVALID_CREDENTIALS` 401 · `DUPLICATE_REGISTRATION` 409 · `DUPLICATE_LICENSE` 409 ·
+`INVALID_CREDENTIALS` 401 · `DUPLICATE_EMAIL` 409 · `DUPLICATE_REGISTRATION` 409 · `DUPLICATE_LICENSE` 409 ·
 `INVALID_STATUS_CHANGE` 400 · `VEHICLE_IN_SHOP` 400 · `VEHICLE_ON_TRIP` 400 ·
 `VEHICLE_RETIRED` 400 · `VEHICLE_NOT_AVAILABLE` 400 · `DRIVER_ON_TRIP` 400 ·
 `DRIVER_LICENSE_EXPIRED` 400 · `DRIVER_SUSPENDED` 400 · `DRIVER_NOT_AVAILABLE` 400 ·
