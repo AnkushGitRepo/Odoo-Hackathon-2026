@@ -55,6 +55,14 @@ Open http://localhost:5173
 - **Fuel & Expenses** — fuel logs, tolls/misc expenses, auto-computed operational cost per vehicle
 - **Analytics** — fuel efficiency (km/L), fleet utilization, operational cost, vehicle ROI, CSV export
 
+## Bonus Features Delivered
+
+- **Charts & visual analytics** — Recharts on Dashboard (vehicle status donut) and Analytics (revenue trend, costliest vehicles)
+- **Dark mode** — toggle in the topbar, persisted per-browser, across every authenticated page (landing/auth stay light by design)
+- **Search, filters & sorting** — reg. no. search and type/status filters on Fleet, name/license search on Drivers, type/status/region filters on Dashboard
+- **CSV export** — full analytics report, one row per vehicle
+- **Responsive design** — every page tested and fixed at 375px and 768px, not just desktop
+
 ## Business Rules (enforced server-side in `server/src/lib/rules.ts`)
 
 1. Vehicle registration number is unique
@@ -76,6 +84,7 @@ Open http://localhost:5173
 - [docs/DECISIONS.md](./docs/DECISIONS.md) — decision log
 - [docs/TASKS.md](./docs/TASKS.md) — live task split between team members
 - [docs/AGENT_LOG.md](./docs/AGENT_LOG.md) — per-session agent work log
+- [docs/DEMO_SCRIPT.md](./docs/DEMO_SCRIPT.md) — the exact walkthrough to run live for judges
 
 ## Team
 

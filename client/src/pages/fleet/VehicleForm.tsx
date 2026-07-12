@@ -71,7 +71,7 @@ export default function VehicleForm({
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
           <span className={labelClass}>Registration No.</span>
           <input
@@ -94,7 +94,7 @@ export default function VehicleForm({
         </label>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
           <span className={labelClass}>Type</span>
           <select
@@ -123,7 +123,7 @@ export default function VehicleForm({
         </label>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
           <span className={labelClass}>Odometer (km)</span>
           <input

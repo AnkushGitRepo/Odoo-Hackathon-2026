@@ -139,28 +139,33 @@ export default function DashboardPage() {
         {kpis && kpis.recentTrips.length > 0 && (
           <div className="overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
             <h2 className="px-6 pt-5 text-sm font-bold tracking-wide uppercase">Recent Trips</h2>
-            <table className="mt-3 w-full text-left text-sm">
-              <thead>
-                <tr className="text-xs text-ink-500 uppercase dark:text-slate-400">
-                  <th className="px-6 py-2 font-semibold">Trip</th>
-                  <th className="px-6 py-2 font-semibold">Vehicle</th>
-                  <th className="px-6 py-2 font-semibold">Driver</th>
-                  <th className="px-6 py-2 font-semibold">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {kpis.recentTrips.map((trip) => (
-                  <tr key={trip._id} className="border-t border-mist-100 dark:border-slate-800">
-                    <td className="px-6 py-3 font-semibold">{trip.code}</td>
-                    <td className="px-6 py-3">{trip.vehicle?.name ?? "Unassigned"}</td>
-                    <td className="px-6 py-3">{trip.driver?.name ?? "Unassigned"}</td>
-                    <td className="px-6 py-3">
-                      <StatusBadge status={trip.status} />
-                    </td>
+            <div className="mt-3 overflow-x-auto">
+              <table className="w-full text-left text-sm">
+                <thead>
+                  <tr className="text-xs text-ink-500 uppercase dark:text-slate-400">
+                    <th className="px-6 py-2 font-semibold">Trip</th>
+                    <th className="px-6 py-2 font-semibold">Vehicle</th>
+                    <th className="px-6 py-2 font-semibold">Driver</th>
+                    <th className="px-6 py-2 font-semibold">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {kpis.recentTrips.map((trip) => (
+                    <tr
+                      key={trip._id}
+                      className="border-t border-mist-100 dark:border-slate-800"
+                    >
+                      <td className="px-6 py-3 font-semibold">{trip.code}</td>
+                      <td className="px-6 py-3">{trip.vehicle?.name ?? "Unassigned"}</td>
+                      <td className="px-6 py-3">{trip.driver?.name ?? "Unassigned"}</td>
+                      <td className="px-6 py-3">
+                        <StatusBadge status={trip.status} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>
