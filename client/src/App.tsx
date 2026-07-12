@@ -6,11 +6,11 @@ import LandingPage from "./pages/landing/LandingPage";
 import LoginPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import FleetPage from "./pages/fleet/FleetPage";
 import {
   AnalyticsPage,
   DriversPage,
   ExpensesPage,
-  FleetPage,
   MaintenancePage,
   SettingsPage,
   TripsPage,

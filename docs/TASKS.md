@@ -31,7 +31,7 @@ Mongoose models already shipped in T5 — no need to wait on Ankush's routes to 
 
 | ID | Page slice (backend routes + UI) | Owner | Status |
 |---|---|---|---|
-| M1 | Fleet / Vehicle Registry (`/api/vehicles` + `/fleet`) | Ankush | todo |
+| M1 | Fleet / Vehicle Registry (`/api/vehicles` + `/fleet`) | Ankush | done |
 | M2 | Drivers (`/api/drivers` + `/drivers`) | Dev | todo |
 | M3 | Trips + rules engine (`lib/rules.ts`, `/api/trips` + `/trips`) | Ankush | todo |
 | M4 | Maintenance (`/api/maintenance` + `/maintenance`) | Dev | todo |

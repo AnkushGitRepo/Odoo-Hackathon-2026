@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import authRouter from "./routes/auth.js";
 import dashboardRouter from "./routes/dashboard.js";
+import vehiclesRouter from "./routes/vehicles.js";
 import { fail } from "./lib/respond.js";
 
 const app = express();
@@ -17,6 +18,7 @@ app.get("/api/health", (_req, res) => {
 
 app.use("/api/auth", authRouter);
 app.use("/api/dashboard", dashboardRouter);
+app.use("/api/vehicles", vehiclesRouter);
 
 app.use("/api", (_req, res) => {
   fail(res, 404, "NOT_FOUND", "No such endpoint.");

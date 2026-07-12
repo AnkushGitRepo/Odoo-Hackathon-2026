@@ -1,16 +1,7 @@
 import PlaceholderPage from "../components/PlaceholderPage";
 
-/** One stub per module page — replaced one by one as slices M1-M8 land. */
-
-export function FleetPage() {
-  return (
-    <PlaceholderPage
-      title="Fleet"
-      description="Vehicle registry with unique registration numbers, capacity, odometer, and status lifecycle."
-      task="M1"
-    />
-  );
-}
+/** One stub per module page — replaced one by one as slices M1-M8 land.
+ *  FleetPage shipped (M1) and moved to ./fleet/FleetPage.tsx. */
 
 export function DriversPage() {
   return (
