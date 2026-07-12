@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Download, TrendingUp, BarChart3, Activity } from "lucide-react";
 import { apiGet, type ApiError } from "../../lib/api";
+import { useAuth } from "../../lib/auth";
+import { can } from "../../lib/rbac";
+import { Navigate } from "react-router-dom";
 
 import type { AnalyticsData } from "../../lib/types";
 import {
@@ -14,6 +17,12 @@ import {
 } from "recharts";
 
 export default function AnalyticsPage() {
+  const { user } = useAuth();
+  
+  if (can(user!.role, "analytics") === null) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [pending, setPending] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,12 +62,20 @@ export default function AnalyticsPage() {
     <div className="mx-auto max-w-6xl">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl dark:text-slate-100">Analytics</h1>
-        <button
-          onClick={handleExportCsv}
-          className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
-        >
-          <Download className="size-4" /> Export CSV
-        </button>
+        <div className="flex items-center gap-2 print:hidden">
+          <button
+            onClick={() => window.print()}
+            className="flex items-center gap-2 rounded-lg border border-mist-200 bg-white px-4 py-2 text-sm font-semibold text-ink-700 shadow-sm hover:bg-mist-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+          >
+            Export PDF
+          </button>
+          <button
+            onClick={handleExportCsv}
+            className="flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+          >
+            <Download className="size-4" /> Export CSV
+          </button>
+        </div>
       </div>
 
       {error && (

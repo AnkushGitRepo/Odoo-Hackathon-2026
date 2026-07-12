@@ -92,9 +92,9 @@ Detailed, fully self-contained prompts:
 | S1 | Security hardening: audit for hardcoded secrets, confirm `.gitignore` covers every `.env`, rate-limit `/api/auth/login` + `/api/auth/register`, review CORS + error-message leakage | Ankush | todo |
 | S2 | Adversarial QA + edge-case re-verification on Ankush's pages/routes (Fleet, Trips + rules engine, Dashboard, Settings) | Ankush | todo |
 | S3 | Docs & submission checklist: confirm repo visibility, every doc matches shipped reality, commit hygiene (no stray files), `docs/TASKS.md` accurate | Ankush | todo |
-| S4 | Full manual QA pass across Dev's four modules (Drivers, Maintenance, Expenses, Analytics) as all 4 roles; document and fix anything found | Dev | todo |
-| S5 | Security self-check on Dev's own routes: RBAC guards match the matrix exactly, no `any`, every write endpoint Zod-validated, no leftover `console.log` | Dev | todo |
-| S6 | *Optional stretch, only if time remains*: PDF export on the Analytics page, alongside the existing CSV export | Dev | todo |
+| S4 | Full manual QA pass across Dev's four modules (Drivers, Maintenance, Expenses, Analytics) as all 4 roles; document and fix anything found | Dev | done |
+| S5 | Security self-check on Dev's own routes: RBAC guards match the matrix exactly, no `any`, every write endpoint Zod-validated, no leftover `console.log` | Dev | done |
+| S6 | *Optional stretch, only if time remains*: PDF export on the Analytics page, alongside the existing CSV export | Dev | done |
 
 ## Phase 6 — Deployment (deferred to the very end)
 
