@@ -21,5 +21,8 @@ npm-debug.log*
 .vscode/
 .idea/
 
+# per-developer AI tool config — never shared, each teammate has their own
+.claude/settings.local.json
+
 # impeccable live-mode runtime state
 .impeccable/live/session*
