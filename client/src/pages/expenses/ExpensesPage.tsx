@@ -4,6 +4,7 @@ import { apiGet, apiPost, type ApiError } from "../../lib/api";
 import { useAuth } from "../../lib/auth";
 import { can } from "../../lib/rbac";
 import type { FuelLog, ExpenseSummaryRow, Vehicle } from "../../lib/types";
+import { Navigate } from "react-router-dom";
 
 export default function ExpensesPage() {
   const { user } = useAuth();
@@ -12,6 +13,10 @@ export default function ExpensesPage() {
   const [totalOperationalCost, setTotalOperationalCost] = useState(0);
   const [pending, setPending] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  if (can(user!.role, "expenses") === null) {
+    return <Navigate to="/dashboard" replace />;
+  }
 
   const hasFullAccess = can(user!.role, "expenses") === "full";
   const [showFuelModal, setShowFuelModal] = useState(false);
