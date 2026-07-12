@@ -61,12 +61,12 @@ async function seed() {
 
     // 3. Drivers
     const driversData = [
-      { name: "Alex", licenseNumber: "DL-88213", licenseCategory: "LMV", licenseExpiry: new Date("2028-12-31"), contact: "98765xxxxx", safetyScore: 96, tripCompletionRate: 96, status: "ON_TRIP" },
-      { name: "John", licenseNumber: "DL-44120", licenseCategory: "HMV", licenseExpiry: new Date("2025-03-31"), contact: "98220xxxxx", safetyScore: 81, tripCompletionRate: 81, status: "SUSPENDED" },
-      { name: "Priya", licenseNumber: "DL-77031", licenseCategory: "LMV", licenseExpiry: new Date("2027-08-31"), contact: "99110xxxxx", safetyScore: 99, tripCompletionRate: 99, status: "AVAILABLE" },
-      { name: "Suresh", licenseNumber: "DL-90045", licenseCategory: "HMV", licenseExpiry: new Date("2027-01-31"), contact: "97440xxxxx", safetyScore: 88, tripCompletionRate: 88, status: "OFF_DUTY" },
-      { name: "Kavita", licenseNumber: "DL-55672", licenseCategory: "LMV", licenseExpiry: new Date("2029-05-31"), contact: "98010xxxxx", safetyScore: 94, tripCompletionRate: 92, status: "AVAILABLE" },
-      { name: "Ramesh", licenseNumber: "DL-33208", licenseCategory: "HMV", licenseExpiry: new Date("2026-11-30"), contact: "97650xxxxx", safetyScore: 90, tripCompletionRate: 87, status: "AVAILABLE" },
+      { name: "Alex", licenseNumber: "DL-88213", licenseCategory: ["LMV"], licenseExpiry: new Date("2028-12-31"), contact: "98765xxxxx", safetyScore: 96, tripCompletionRate: 96, status: "ON_TRIP" },
+      { name: "John", licenseNumber: "DL-44120", licenseCategory: ["HMV"], licenseExpiry: new Date("2025-03-31"), contact: "98220xxxxx", safetyScore: 81, tripCompletionRate: 81, status: "SUSPENDED" },
+      { name: "Priya", licenseNumber: "DL-77031", licenseCategory: ["LMV", "HMV"], licenseExpiry: new Date("2027-08-31"), contact: "99110xxxxx", safetyScore: 99, tripCompletionRate: 99, status: "AVAILABLE" },
+      { name: "Suresh", licenseNumber: "DL-90045", licenseCategory: ["HMV"], licenseExpiry: new Date("2027-01-31"), contact: "97440xxxxx", safetyScore: 88, tripCompletionRate: 88, status: "OFF_DUTY" },
+      { name: "Kavita", licenseNumber: "DL-55672", licenseCategory: ["LMV"], licenseExpiry: new Date("2029-05-31"), contact: "98010xxxxx", safetyScore: 94, tripCompletionRate: 92, status: "AVAILABLE" },
+      { name: "Ramesh", licenseNumber: "DL-33208", licenseCategory: ["LMV", "HMV"], licenseExpiry: new Date("2026-11-30"), contact: "97650xxxxx", safetyScore: 90, tripCompletionRate: 87, status: "AVAILABLE" },
     ];
     const drivers = await Driver.insertMany(driversData);
     console.log(`Inserted ${drivers.length} drivers.`);

@@ -37,7 +37,7 @@ Your job in this session is exactly three tasks from `docs/TASKS.md`:
 One file per model. Field names must match the API contract in AGENTS.md exactly. Reference fields that the contract returns as populated objects must be named `vehicle` / `driver` (ObjectId refs), so `.populate("vehicle driver")` produces the contract shape directly. `tripId` stays a plain ObjectId (serialized as string, not populated).
 
 - **Vehicle.ts**: `registrationNumber` (String, required, unique, uppercase, trim), `name` (required), `type` (enum VEHICLE_TYPES), `maxLoadCapacityKg` (Number, required, min 1), `odometerKm` (default 0, min 0), `acquisitionCost` (required, min 0), `region` (default ""), `status` (enum VEHICLE_STATUSES, default "AVAILABLE"). Timestamps.
-- **Driver.ts**: `name` (required), `licenseNumber` (required, unique, trim), `licenseCategory` (enum LICENSE_CATEGORIES), `licenseExpiry` (Date, required), `contact` (required), `safetyScore` (default 100, 0–100), `tripCompletionRate` (default 100, 0–100), `status` (enum DRIVER_STATUSES, default "AVAILABLE"). Timestamps.
+- **Driver.ts**: `name` (required), `licenseNumber` (required, unique, trim), `licenseCategory` (array of LICENSE_CATEGORIES, non-empty — a license can cover both LMV and HMV), `licenseExpiry` (Date, required), `contact` (required), `safetyScore` (default 100, 0–100), `tripCompletionRate` (default 100, 0–100), `status` (enum DRIVER_STATUSES, default "AVAILABLE"). Timestamps.
 - **Trip.ts**: `code` (required, unique — "TR001" style), `source`, `destination` (required), `vehicle` (ObjectId ref "Vehicle", default null), `driver` (ObjectId ref "Driver", default null), `cargoWeightKg` (required, min 1), `plannedDistanceKm` (required, min 1), `status` (enum TRIP_STATUSES, default "DRAFT"), and nullable-with-default-null: `revenue`, `startOdometer`, `endOdometer`, `fuelUsedL`, `cancelReason`, `dispatchedAt`, `completedAt`. Timestamps.
 - **MaintenanceLog.ts**: `vehicle` (ref, required), `serviceType` (required), `cost` (required, min 0), `date` (Date, default now), `status` (enum MAINTENANCE_STATUSES, default "ACTIVE"), `closedAt` (default null). Timestamps.
 - **FuelLog.ts**: `vehicle` (ref, required), `tripId` (ObjectId, default null), `liters` (required, min 0), `cost` (required, min 0), `date` (Date, default now). Timestamps.
@@ -65,13 +65,13 @@ Vehicles (8, region "Gandhinagar" unless noted) — mirror the mockup:
 - GJ01EF3301 "VAN-02", VAN, 500 kg, odo 12000, cost 640000, AVAILABLE (region "Ahmedabad")
 - GJ01EF8892 "BIKE-01", BIKE, 40 kg, odo 8000, cost 95000, AVAILABLE
 
-Drivers (6):
-- Alex, DL-88213, LMV, expiry 2028-12-31, 98765xxxxx, safety 96, completion 96, **ON_TRIP**
-- John, DL-44120, HMV, expiry **2025-03-31 (expired)**, 98220xxxxx, safety 81, completion 81, **SUSPENDED**
-- Priya, DL-77031, LMV, expiry 2027-08-31, 99110xxxxx, safety 99, completion 99, AVAILABLE
-- Suresh, DL-90045, HMV, expiry 2027-01-31, 97440xxxxx, safety 88, completion 88, OFF_DUTY
-- Kavita, DL-55672, LMV, expiry 2029-05-31, 98010xxxxx, safety 94, completion 92, AVAILABLE
-- Ramesh, DL-33208, HMV, expiry 2026-11-30, 97650xxxxx, safety 90, completion 87, AVAILABLE
+Drivers (6) — `licenseCategory` is an array; a license can cover both classes:
+- Alex, DL-88213, [LMV], expiry 2028-12-31, 98765xxxxx, safety 96, completion 96, **ON_TRIP**
+- John, DL-44120, [HMV], expiry **2025-03-31 (expired)**, 98220xxxxx, safety 81, completion 81, **SUSPENDED**
+- Priya, DL-77031, [LMV, HMV], expiry 2027-08-31, 99110xxxxx, safety 99, completion 99, AVAILABLE
+- Suresh, DL-90045, [HMV], expiry 2027-01-31, 97440xxxxx, safety 88, completion 88, OFF_DUTY
+- Kavita, DL-55672, [LMV], expiry 2029-05-31, 98010xxxxx, safety 94, completion 92, AVAILABLE
+- Ramesh, DL-33208, [LMV, HMV], expiry 2026-11-30, 97650xxxxx, safety 90, completion 87, AVAILABLE
 
 Trips — statuses must stay **coherent** with the vehicle/driver statuses above:
 - TR001: Gandhinagar Depot → Ahmedabad Hub, **VAN-05 + Alex** (the two ON_TRIP records), 450 kg, 38 km, **DISPATCHED**, `dispatchedAt` today, `startOdometer` 74000

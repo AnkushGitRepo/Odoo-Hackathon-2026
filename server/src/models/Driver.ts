@@ -4,7 +4,8 @@ import { LICENSE_CATEGORIES, DRIVER_STATUSES, type LicenseCategory, type DriverS
 export interface DriverFields {
   name: string;
   licenseNumber: string;
-  licenseCategory: LicenseCategory;
+  /** A license can cover more than one class (e.g. LMV and HMV together). */
+  licenseCategory: LicenseCategory[];
   licenseExpiry: Date;
   contact: string;
   safetyScore: number;
@@ -16,7 +17,15 @@ const driverSchema = new Schema<DriverFields>(
   {
     name: { type: String, required: true, trim: true },
     licenseNumber: { type: String, required: true, unique: true, trim: true },
-    licenseCategory: { type: String, enum: LICENSE_CATEGORIES, required: true },
+    licenseCategory: {
+      type: [String],
+      enum: LICENSE_CATEGORIES,
+      required: true,
+      validate: {
+        validator: (value: string[]) => Array.isArray(value) && value.length > 0,
+        message: "licenseCategory must contain at least one category.",
+      },
+    },
     licenseExpiry: { type: Date, required: true },
     contact: { type: String, required: true, trim: true },
     safetyScore: { type: Number, required: true, default: 100, min: 0, max: 100 },

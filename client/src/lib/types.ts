@@ -54,7 +54,8 @@ export interface Driver {
   _id: string;
   name: string;
   licenseNumber: string;
-  licenseCategory: LicenseCategory;
+  /** A license can cover more than one class (e.g. LMV and HMV together). */
+  licenseCategory: LicenseCategory[];
   licenseExpiry: string;
   contact: string;
   safetyScore: number;

@@ -89,7 +89,7 @@ type Role          = "FLEET_MANAGER" | "DISPATCHER" | "SAFETY_OFFICER" | "FINANC
 type VehicleType   = "VAN" | "TRUCK" | "MINI" | "BIKE";
 type VehicleStatus = "AVAILABLE" | "ON_TRIP" | "IN_SHOP" | "RETIRED";
 type DriverStatus  = "AVAILABLE" | "ON_TRIP" | "OFF_DUTY" | "SUSPENDED";
-type LicenseCategory = "LMV" | "HMV";
+type LicenseCategory = "LMV" | "HMV"; // Driver.licenseCategory is an ARRAY of these — a license can cover both
 type TripStatus    = "DRAFT" | "DISPATCHED" | "COMPLETED" | "CANCELLED";
 type MaintenanceStatus = "ACTIVE" | "COMPLETED";
 type ExpenseCategory   = "TOLL" | "MISC";
@@ -119,7 +119,7 @@ interface Driver {
   _id: string;
   name: string;
   licenseNumber: string;        // unique, e.g. "DL-88213"
-  licenseCategory: LicenseCategory;
+  licenseCategory: LicenseCategory[]; // non-empty; a license can cover both LMV and HMV
   licenseExpiry: string;        // ISO date; expired ⇒ not assignable
   contact: string;              // phone
   safetyScore: number;          // 0–100
@@ -233,9 +233,9 @@ while an ACTIVE maintenance log exists → 400 `VEHICLE_IN_SHOP`.
 | `PUT /api/drivers/:id` | FLEET_MANAGER, SAFETY_OFFICER | Update incl. status toggle |
 
 **POST /api/drivers**
-Request: `{ name: string, licenseNumber: string, licenseCategory: LicenseCategory, licenseExpiry: string (ISO), contact: string, safetyScore?: number = 100, tripCompletionRate?: number = 100 }`
+Request: `{ name: string, licenseNumber: string, licenseCategory: LicenseCategory[] (non-empty), licenseExpiry: string (ISO), contact: string, safetyScore?: number = 100, tripCompletionRate?: number = 100 }`
 New drivers start `status: "AVAILABLE"`.
-201: `{ data: Driver }` · 409 `DUPLICATE_LICENSE`.
+201: `{ data: Driver }` · 409 `DUPLICATE_LICENSE` · 400 `VALIDATION` if `licenseCategory` is empty.
 
 **PUT /api/drivers/:id** — partial update. Status guard: `ON_TRIP` cannot be set manually
 (400 `INVALID_STATUS_CHANGE`); a driver currently `ON_TRIP` cannot be edited to another

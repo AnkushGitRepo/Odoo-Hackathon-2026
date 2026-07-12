@@ -21,7 +21,7 @@ server (Express, :5001)
 |---|---|---|
 | **User** | email (unique), passwordHash, name, role | role: `FLEET_MANAGER` \| `DISPATCHER` \| `SAFETY_OFFICER` \| `FINANCIAL_ANALYST` (string enum — no separate Roles collection) |
 | **Vehicle** | registrationNumber (unique index), name, type (VAN/TRUCK/MINI/BIKE), maxLoadCapacityKg, odometerKm, acquisitionCost, region, status | status: `AVAILABLE` \| `ON_TRIP` \| `IN_SHOP` \| `RETIRED` |
-| **Driver** | name, licenseNumber (unique), licenseCategory (LMV/HMV), licenseExpiry (Date), contact, safetyScore, tripCompletionRate, status | status: `AVAILABLE` \| `ON_TRIP` \| `OFF_DUTY` \| `SUSPENDED` |
+| **Driver** | name, licenseNumber (unique), licenseCategory (array of LMV/HMV — a license can cover both), licenseExpiry (Date), contact, safetyScore, tripCompletionRate, status | status: `AVAILABLE` \| `ON_TRIP` \| `OFF_DUTY` \| `SUSPENDED` |
 | **Trip** | code (TR001…), source, destination, vehicleId?, driverId?, cargoWeightKg, plannedDistanceKm, status, revenue?, startOdometer?, endOdometer?, fuelUsedL?, dispatchedAt?, completedAt? | status: `DRAFT` \| `DISPATCHED` \| `COMPLETED` \| `CANCELLED` |
 | **MaintenanceLog** | vehicleId, serviceType, cost, date, status | status: `ACTIVE` \| `COMPLETED`; open/close drives vehicle status |
 | **FuelLog** | vehicleId, tripId?, liters, cost, date | feeds fuel efficiency + operational cost |
