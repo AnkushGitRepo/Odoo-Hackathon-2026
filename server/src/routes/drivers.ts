@@ -30,7 +30,7 @@ const updateDriverSchema = z.object({
 router.get("/", requireAuth, async (req, res, next) => {
   try {
     const { status, q } = req.query;
-    const filter: Record<string, any> = {};
+    const filter: Record<string, unknown> = {};
 
     if (typeof status === "string" && (DRIVER_STATUSES as readonly string[]).includes(status)) {
       filter.status = status;

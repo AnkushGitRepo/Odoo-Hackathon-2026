@@ -150,10 +150,10 @@ router.get("/export.csv", requireAuth, requireRole("FLEET_MANAGER", "FINANCIAL_A
     }
 
     const csvHeader = "registrationNumber,name,type,status,revenue,fuelCost,maintenanceCost,operationalCost,roiPct";
-    const csvRows = rows.map(r => 
-      `${r.registrationNumber},${r.name},${r.type},${r.status},${r.revenue},${r.fuelCost},${r.maintenanceCost},${r.operationalCost},${r.roiPct}`
+    const csvRows = rows.map(r =>
+      `${r.registrationNumber},"${r.name}",${r.type},${r.status},${r.revenue},${r.fuelCost},${r.maintenanceCost},${r.operationalCost},${r.roiPct}`
     );
-    const csvData = [csvHeader, ...csvRows].join("\\n");
+    const csvData = [csvHeader, ...csvRows].join("\n");
 
     res.setHeader("Content-Type", "text/csv");
     res.setHeader("Content-Disposition", 'attachment; filename="transitops-report.csv"');

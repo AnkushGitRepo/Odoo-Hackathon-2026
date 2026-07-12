@@ -17,7 +17,7 @@ const createFuelLogSchema = z.object({
 router.get("/", requireAuth, async (req, res, next) => {
   try {
     const { vehicleId } = req.query;
-    const filter: Record<string, any> = {};
+    const filter: Record<string, unknown> = {};
 
     if (typeof vehicleId === "string" && vehicleId.trim() !== "") {
       filter.vehicle = vehicleId;

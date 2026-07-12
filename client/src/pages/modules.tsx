@@ -1,47 +1,8 @@
 import PlaceholderPage from "../components/PlaceholderPage";
 
 /** One stub per module page — replaced one by one as slices M1-M8 land.
- *  FleetPage (M1) and TripsPage (M3) shipped and moved to their own folders. */
-
-export function DriversPage() {
-  return (
-    <PlaceholderPage
-      title="Drivers"
-      description="Driver profiles with license expiry tracking, safety scores, and duty status."
-      task="M2"
-    />
-  );
-}
-
-export function MaintenancePage() {
-  return (
-    <PlaceholderPage
-      title="Maintenance"
-      description="Service records that automatically move vehicles in and out of the shop."
-      task="M4"
-    />
-  );
-}
-
-export function ExpensesPage() {
-  return (
-    <PlaceholderPage
-      title="Fuel & Expenses"
-      description="Fuel logs, tolls, and the auto-computed operational cost per vehicle."
-      task="M5"
-    />
-  );
-}
-
-export function AnalyticsPage() {
-  return (
-    <PlaceholderPage
-      title="Analytics"
-      description="Fuel efficiency, utilization, vehicle ROI, and CSV export."
-      task="M6"
-    />
-  );
-}
+ *  FleetPage (M1), TripsPage (M3), DriversPage (M2), MaintenancePage (M4),
+ *  ExpensesPage (M5), AnalyticsPage (M6) shipped and moved to their own folders. */
 
 export function SettingsPage() {
   return (
