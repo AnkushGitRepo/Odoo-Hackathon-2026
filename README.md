@@ -79,7 +79,7 @@ Open http://localhost:5173
 
 ## Team
 
-- Ankush (lju.ankush@gmail.com) — Claude Code
+- Ankush Gupta ([@AnkushGitRepo](https://github.com/AnkushGitRepo), ankushgupta1806@gmail.com) — Claude Code
 - Teammate — Antigravity
 
 Both members commit hourly to `main` per hackathon rules.
