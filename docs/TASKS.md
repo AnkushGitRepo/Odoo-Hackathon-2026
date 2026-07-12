@@ -23,18 +23,24 @@ when you start/finish a task. If you take over an unowned/blocked task, write yo
 | T8 | App shell: responsive sidebar (RBAC-filtered) + topbar + badge/kpi-card components | Ankush | done |
 | T9 | Basic dashboard page: KPI cards + recent trips (filters + donut can wait) | Ankush | done |
 
-## Phase 2+ — Module pages (assign owners when a phase starts)
+## Phase 2 — Module pages
+
+Split so neither of us blocks the other: Ankush's M1 gives Dev the vehicle picker data
+his M4/M5 forms need, but Dev's M2/M4/M5/M6 are all buildable directly against the
+Mongoose models already shipped in T5 — no need to wait on Ankush's routes to start.
 
 | ID | Page slice (backend routes + UI) | Owner | Status |
 |---|---|---|---|
-| M1 | Fleet / Vehicle Registry (`/api/vehicles` + `/fleet`) | — | todo |
-| M2 | Drivers (`/api/drivers` + `/drivers`) | — | todo |
-| M3 | Trips + rules engine (`lib/rules.ts`, `/api/trips` + `/trips`) | — | todo |
-| M4 | Maintenance (`/api/maintenance` + `/maintenance`) | — | todo |
-| M5 | Fuel & Expenses (`/api/fuel-logs`, `/api/expenses` + `/expenses`) | — | todo |
-| M6 | Analytics + CSV (`/api/analytics` + `/analytics`) | — | todo |
-| M7 | Dashboard finishers: filters, status donut | — | todo |
-| M8 | Settings page (general + RBAC matrix display) | — | todo |
+| M1 | Fleet / Vehicle Registry (`/api/vehicles` + `/fleet`) | Ankush | todo |
+| M2 | Drivers (`/api/drivers` + `/drivers`) | Dev | todo |
+| M3 | Trips + rules engine (`lib/rules.ts`, `/api/trips` + `/trips`) | Ankush | todo |
+| M4 | Maintenance (`/api/maintenance` + `/maintenance`) | Dev | todo |
+| M5 | Fuel & Expenses (`/api/fuel-logs`, `/api/expenses` + `/expenses`) | Dev | todo |
+| M6 | Analytics + CSV (`/api/analytics` + `/analytics`) | Dev | todo |
+| M7 | Dashboard finishers: filters, status donut | Ankush | todo |
+| M8 | Settings page (general + RBAC matrix display) | Ankush | todo |
+
+Dev's detailed task prompt: [docs/PROMPT_DEV_PHASE2.md](./PROMPT_DEV_PHASE2.md).
 
 ## Polish (last)
 
