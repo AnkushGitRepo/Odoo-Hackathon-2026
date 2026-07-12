@@ -32,11 +32,11 @@ Mongoose models already shipped in T5 — no need to wait on Ankush's routes to 
 | ID | Page slice (backend routes + UI) | Owner | Status |
 |---|---|---|---|
 | M1 | Fleet / Vehicle Registry (`/api/vehicles` + `/fleet`) | Ankush | done |
-| M2 | Drivers (`/api/drivers` + `/drivers`) | Dev | todo |
+| M2 | Drivers (`/api/drivers` + `/drivers`) | Dev | doing |
 | M3 | Trips + rules engine (`lib/rules.ts`, `/api/trips` + `/trips`) | Ankush | todo |
-| M4 | Maintenance (`/api/maintenance` + `/maintenance`) | Dev | todo |
-| M5 | Fuel & Expenses (`/api/fuel-logs`, `/api/expenses` + `/expenses`) | Dev | todo |
-| M6 | Analytics + CSV (`/api/analytics` + `/analytics`) | Dev | todo |
+| M4 | Maintenance (`/api/maintenance` + `/maintenance`) | Dev | doing |
+| M5 | Fuel & Expenses (`/api/fuel-logs`, `/api/expenses` + `/expenses`) | Dev | doing |
+| M6 | Analytics + CSV (`/api/analytics` + `/analytics`) | Dev | doing |
 | M7 | Dashboard finishers: filters, status donut | Ankush | todo |
 | M8 | Settings page (general + RBAC matrix display) | Ankush | todo |
 
