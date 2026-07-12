@@ -160,11 +160,6 @@ export default function FleetPage() {
         </table>
       </div>
 
-      <p className="mt-4 text-xs text-ink-500 dark:text-slate-400">
-        Rule: Registration No. must be unique · Retired/In Shop vehicles are hidden from Trip
-        Dispatcher.
-      </p>
-
       {dialog && (
         <Modal
           title={dialog === "add" ? "Add Vehicle" : "Edit Vehicle"}

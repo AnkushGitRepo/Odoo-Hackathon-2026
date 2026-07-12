@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Plus, Wrench } from "lucide-react";
+import { Plus } from "lucide-react";
 import { apiGet, apiPost, type ApiError } from "../../lib/api";
 import { useAuth } from "../../lib/auth";
 import { can } from "../../lib/rbac";
@@ -116,10 +116,6 @@ export default function MaintenancePage() {
             )}
           </tbody>
         </table>
-        <div className="bg-mist-50 px-6 py-3 text-xs text-ink-500 flex items-center gap-2 border-t border-mist-100 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800">
-          <Wrench className="size-4" />
-          In Shop vehicles are removed from the dispatch pool.
-        </div>
       </div>
 
       {showAddModal && (

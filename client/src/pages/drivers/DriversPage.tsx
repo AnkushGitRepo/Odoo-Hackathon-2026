@@ -152,10 +152,6 @@ export default function DriversPage() {
             )}
           </tbody>
         </table>
-        <div className="bg-mist-50 px-6 py-3 text-xs text-ink-500 flex items-center gap-2 border-t border-mist-100 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800">
-          <AlertCircle className="size-4" />
-          Expired license or Suspended status → blocked from trip assignment.
-        </div>
       </div>
 
       {showAddModal && (

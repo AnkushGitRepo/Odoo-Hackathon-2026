@@ -1,7 +1,4 @@
 import { useState, type FormEvent } from "react";
-import { Check, Minus, Eye } from "lucide-react";
-import { ROLE_LABELS, type Role } from "../../lib/types";
-import { can, type Module } from "../../lib/rbac";
 
 const STORAGE_KEY = "transitops_settings";
 
@@ -24,30 +21,6 @@ function loadSettings(): GeneralSettings {
   } catch {
     return DEFAULTS;
   }
-}
-
-const ROLES: Role[] = ["FLEET_MANAGER", "DISPATCHER", "SAFETY_OFFICER", "FINANCIAL_ANALYST"];
-const MODULES: Array<{ key: Module; label: string }> = [
-  { key: "fleet", label: "Fleet" },
-  { key: "drivers", label: "Drivers" },
-  { key: "trips", label: "Trips" },
-  { key: "expenses", label: "Fuel/Exp." },
-  { key: "analytics", label: "Analytics" },
-];
-
-function AccessIcon({ access }: { access: "full" | "view" | null }) {
-  if (access === "full")
-    return (
-      <Check
-        className="mx-auto size-4 text-green-600 dark:text-green-400"
-        strokeWidth={2.5}
-      />
-    );
-  if (access === "view")
-    return (
-      <Eye className="mx-auto size-4 text-ink-500 dark:text-slate-400" strokeWidth={2} />
-    );
-  return <Minus className="mx-auto size-4 text-mist-300 dark:text-slate-700" strokeWidth={2} />;
 }
 
 export default function SettingsPage() {
@@ -117,50 +90,6 @@ export default function SettingsPage() {
             )}
           </div>
         </form>
-      </div>
-
-      <div className="mt-6 overflow-hidden rounded-2xl bg-white shadow-[0_12px_40px_-16px_rgba(22,50,60,0.15)] dark:bg-slate-900">
-        <h2 className="px-6 pt-5 text-sm font-bold tracking-wide uppercase">
-          Role-Based Access (RBAC)
-        </h2>
-        <p className="px-6 pt-1 text-xs text-ink-500 dark:text-slate-400">
-          Read-only. Full access grants create/edit; view is read-only.
-        </p>
-        <table className="mt-4 w-full text-left text-sm">
-          <thead>
-            <tr className="border-t border-mist-100 text-xs text-ink-500 uppercase dark:border-slate-800 dark:text-slate-400">
-              <th className="px-6 py-3 font-semibold">Role</th>
-              {MODULES.map((m) => (
-                <th key={m.key} className="px-3 py-3 text-center font-semibold">
-                  {m.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {ROLES.map((role) => (
-              <tr key={role} className="border-t border-mist-100 dark:border-slate-800">
-                <td className="px-6 py-3 font-semibold">{ROLE_LABELS[role]}</td>
-                {MODULES.map((m) => (
-                  <td key={m.key} className="px-3 py-3 text-center">
-                    <AccessIcon access={can(role, m.key)} />
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="flex flex-wrap gap-6 border-t border-mist-100 px-6 py-4 text-xs text-ink-500 dark:border-slate-800 dark:text-slate-400">
-          <span className="flex items-center gap-1.5">
-            <Check className="size-3.5 text-green-600 dark:text-green-400" /> Full access
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Eye className="size-3.5" /> View only
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Minus className="size-3.5 text-mist-300 dark:text-slate-700" /> No access
-          </span>
-        </div>
       </div>
     </div>
   );

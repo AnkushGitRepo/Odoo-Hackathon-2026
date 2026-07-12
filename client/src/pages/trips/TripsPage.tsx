@@ -3,7 +3,6 @@ import { apiGet, apiPost, type ApiError } from "../../lib/api";
 import { useAuth } from "../../lib/auth";
 import { can } from "../../lib/rbac";
 import type { Trip } from "../../lib/types";
-import LifecycleStepper from "./LifecycleStepper";
 import TripForm from "./TripForm";
 import TripCard from "./TripCard";
 import CompleteTripDialog from "./CompleteTripDialog";
@@ -48,10 +47,6 @@ export default function TripsPage() {
   return (
     <div className="mx-auto max-w-6xl">
       <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Trip Dispatcher</h1>
-
-      <div className="mt-6">
-        <LifecycleStepper />
-      </div>
 
       {error && (
         <div
