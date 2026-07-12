@@ -55,18 +55,38 @@ async function seed() {
       { registrationNumber: "GJ01CD7745", name: "MINI-08", type: "MINI", maxLoadCapacityKg: 1000, odometerKm: 31000, acquisitionCost: 450000, region: "Ahmedabad", status: "AVAILABLE" },
       { registrationNumber: "GJ01EF3301", name: "VAN-02", type: "VAN", maxLoadCapacityKg: 500, odometerKm: 12000, acquisitionCost: 640000, region: "Ahmedabad", status: "AVAILABLE" },
       { registrationNumber: "GJ01EF8892", name: "BIKE-01", type: "BIKE", maxLoadCapacityKg: 40, odometerKm: 8000, acquisitionCost: 95000, region: "Gandhinagar", status: "AVAILABLE" },
+      ...Array.from({ length: 10 }).map((_, i) => ({
+        registrationNumber: `GJ01XX${9000 + i}`,
+        name: `TRK-X${i}`,
+        type: i % 2 === 0 ? "TRUCK" : "VAN",
+        maxLoadCapacityKg: i % 2 === 0 ? 5000 : 750,
+        odometerKm: 20000 + (i * 15000),
+        acquisitionCost: i % 2 === 0 ? 2500000 : 650000,
+        region: i % 3 === 0 ? "Ahmedabad" : "Gandhinagar",
+        status: "AVAILABLE",
+      })),
     ];
     const vehicles = await Vehicle.insertMany(vehiclesData);
     console.log(`Inserted ${vehicles.length} vehicles.`);
 
     // 3. Drivers
     const driversData = [
-      { name: "Alex", licenseNumber: "DL-88213", licenseCategory: ["LMV"], licenseExpiry: new Date("2028-12-31"), contact: "98765xxxxx", safetyScore: 96, tripCompletionRate: 96, status: "ON_TRIP" },
-      { name: "John", licenseNumber: "DL-44120", licenseCategory: ["HMV"], licenseExpiry: new Date("2025-03-31"), contact: "98220xxxxx", safetyScore: 81, tripCompletionRate: 81, status: "SUSPENDED" },
-      { name: "Priya", licenseNumber: "DL-77031", licenseCategory: ["LMV", "HMV"], licenseExpiry: new Date("2027-08-31"), contact: "99110xxxxx", safetyScore: 99, tripCompletionRate: 99, status: "AVAILABLE" },
-      { name: "Suresh", licenseNumber: "DL-90045", licenseCategory: ["HMV"], licenseExpiry: new Date("2027-01-31"), contact: "97440xxxxx", safetyScore: 88, tripCompletionRate: 88, status: "OFF_DUTY" },
-      { name: "Kavita", licenseNumber: "DL-55672", licenseCategory: ["LMV"], licenseExpiry: new Date("2029-05-31"), contact: "98010xxxxx", safetyScore: 94, tripCompletionRate: 92, status: "AVAILABLE" },
-      { name: "Ramesh", licenseNumber: "DL-33208", licenseCategory: ["LMV", "HMV"], licenseExpiry: new Date("2026-11-30"), contact: "97650xxxxx", safetyScore: 90, tripCompletionRate: 87, status: "AVAILABLE" },
+      { name: "Alex", licenseNumber: "DL-88213", licenseCategory: ["LMV"], licenseExpiry: new Date("2028-12-31"), contact: "9876543210", safetyScore: 96, tripCompletionRate: 96, status: "ON_TRIP" },
+      { name: "John", licenseNumber: "DL-44120", licenseCategory: ["HMV"], licenseExpiry: new Date("2025-03-31"), contact: "9822012345", safetyScore: 81, tripCompletionRate: 81, status: "SUSPENDED" },
+      { name: "Priya", licenseNumber: "DL-77031", licenseCategory: ["LMV", "HMV"], licenseExpiry: new Date("2027-08-31"), contact: "9911054321", safetyScore: 99, tripCompletionRate: 99, status: "AVAILABLE" },
+      { name: "Suresh", licenseNumber: "DL-90045", licenseCategory: ["HMV"], licenseExpiry: new Date("2027-01-31"), contact: "9744098765", safetyScore: 88, tripCompletionRate: 88, status: "OFF_DUTY" },
+      { name: "Kavita", licenseNumber: "DL-55672", licenseCategory: ["LMV"], licenseExpiry: new Date("2029-05-31"), contact: "9801011223", safetyScore: 94, tripCompletionRate: 92, status: "AVAILABLE" },
+      { name: "Ramesh", licenseNumber: "DL-33208", licenseCategory: ["LMV", "HMV"], licenseExpiry: new Date("2026-11-30"), contact: "9765099887", safetyScore: 90, tripCompletionRate: 87, status: "AVAILABLE" },
+      ...Array.from({ length: 10 }).map((_, i) => ({
+        name: `Driver${i}`,
+        licenseNumber: `DL-XX${9000 + i}`,
+        licenseCategory: i % 2 === 0 ? ["HMV", "LMV"] : ["LMV"],
+        licenseExpiry: new Date(`202${6 + (i % 3)}-12-31`),
+        contact: `980000${9000 + i}`,
+        safetyScore: 85 + i,
+        tripCompletionRate: 85 + i,
+        status: "AVAILABLE",
+      })),
     ];
     const drivers = await Driver.insertMany(driversData);
     console.log(`Inserted ${drivers.length} drivers.`);
@@ -129,6 +149,29 @@ async function seed() {
         status: "CANCELLED", 
         cancelReason: "Vehicle went to shop" 
       },
+      ...Array.from({ length: 10 }).map((_, i) => {
+        const d = new Date();
+        d.setMonth(d.getMonth() - (1 + Math.floor(i / 2))); // spread over past months
+        d.setDate(d.getDate() - (i * 3));
+        const dispatched = new Date(d);
+        const completed = new Date(d.getTime() + 86400000);
+        return {
+          code: `TR00${5 + i}`,
+          source: "Surat Hub",
+          destination: "Ahmedabad Hub",
+          vehicle: getVehicle("GJ01AB9981"),
+          driver: getDriver("Ramesh"),
+          cargoWeightKg: 3000 + (i * 100),
+          plannedDistanceKm: 280,
+          status: "COMPLETED",
+          startOdometer: 160000 + (i * 1000),
+          endOdometer: 160000 + (i * 1000) + 280,
+          fuelUsedL: 45,
+          revenue: 18000 + (i * 1000),
+          dispatchedAt: dispatched,
+          completedAt: completed
+        };
+      })
     ];
     const trips = await Trip.insertMany(tripsData);
     console.log(`Inserted ${trips.length} trips.`);
@@ -139,6 +182,14 @@ async function seed() {
     const maintenanceData = [
       { vehicle: getVehicle("GJ01AB1120"), serviceType: "Tyre Replace", cost: 6200, status: "ACTIVE", date: today }, // MINI-03
       { vehicle: getVehicle("GJ01AB9981"), serviceType: "Engine Repair", cost: 18000, status: "COMPLETED", date: yesterday, closedAt: yesterday }, // TRUCK-11
+      ...Array.from({ length: 10 }).map((_, i) => ({
+        vehicle: getVehicle(`GJ01XX${9000 + i}`),
+        serviceType: i % 2 === 0 ? "Oil Change" : "Brake Inspection",
+        cost: 1500 + (i * 200),
+        status: "COMPLETED",
+        date: new Date(Date.now() - (i * 86400000 * 3)),
+        closedAt: new Date(Date.now() - (i * 86400000 * 3) + 86400000),
+      })),
     ];
     const maintenanceLogs = await MaintenanceLog.insertMany(maintenanceData);
     console.log(`Inserted ${maintenanceLogs.length} maintenance logs.`);
@@ -157,6 +208,14 @@ async function seed() {
       { vehicle: getVehicle("GJ01CD2210"), tripId: getTrip("TR002"), category: "TOLL", amount: 340, date: yesterday, note: null }, // TR002 toll
       { vehicle: getVehicle("GJ01AB4521"), tripId: getTrip("TR001"), category: "TOLL", amount: 120, date: today, note: null }, // TR001 toll
       { vehicle: getVehicle("GJ01CD7745"), tripId: null, category: "MISC", amount: 150, date: today, note: "General cleaning" }, // MINI-08 misc
+      ...Array.from({ length: 10 }).map((_, i) => ({
+        vehicle: getVehicle(`GJ01XX${9000 + i}`),
+        tripId: null,
+        category: i % 2 === 0 ? "TOLL" : "MISC",
+        amount: 200 + (i * 50),
+        date: new Date(Date.now() - (i * 86400000 * 2)),
+        note: i % 2 === 0 ? "Highway Toll" : "Parking Fee",
+      })),
     ];
     const expenses = await Expense.insertMany(expenseData);
     console.log(`Inserted ${expenses.length} expenses.`);
