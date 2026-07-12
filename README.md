@@ -76,6 +76,7 @@ Open http://localhost:5173
 - [docs/DECISIONS.md](./docs/DECISIONS.md) — decision log
 - [docs/TASKS.md](./docs/TASKS.md) — live task split between team members
 - [docs/AGENT_LOG.md](./docs/AGENT_LOG.md) — per-session agent work log
+- [docs/DEMO_SCRIPT.md](./docs/DEMO_SCRIPT.md) — the exact walkthrough to run live for judges
 
 ## Team
 
