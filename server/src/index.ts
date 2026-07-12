@@ -36,6 +36,13 @@ async function main() {
     );
     process.exit(1);
   }
+  if (MONGODB_URI.includes("<")) {
+    console.error(
+      "MONGODB_URI still contains .env.example placeholders (<user>/<password>/<cluster>).\n" +
+        "Replace it with the real Atlas connection string — ask the team lead for server/.env values.",
+    );
+    process.exit(1);
+  }
   await mongoose.connect(MONGODB_URI);
   console.log("MongoDB connected");
   app.listen(PORT, () => console.log(`API listening on http://localhost:${PORT}`));
